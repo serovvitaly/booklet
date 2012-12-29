@@ -1,67 +1,19 @@
-# [Laravel](http://laravel.com) - A PHP Framework For Web Artisans
+# Kohana PHP Framework
 
-Laravel is a clean and classy framework for PHP web development. Freeing you
-from spaghetti code, Laravel helps you create wonderful applications using
-simple, expressive syntax. Development should be a creative experience that you
-enjoy, not something that is painful. Enjoy the fresh air.
+[Kohana](http://kohanaframework.org/) is an elegant, open source, and object oriented HMVC framework built using PHP5, by a team of volunteers. It aims to be swift, secure, and small.
 
-[Official Website & Documentation](http://laravel.com)
+Released under a [BSD license](http://kohanaframework.org/license), Kohana can be used legally for any open source, commercial, or personal project.
 
-## Feature Overview
+## Documentation
+Kohana's documentation can be found at <http://kohanaframework.org/documentation> which also contains an API browser.
 
-- Simple routing using Closures or controllers.
-- Views and templating.
-- Driver based session and cache handling.
-- Database abstraction with query builder.
-- Authentication.
-- Migrations.
-- PHPUnit Integration.
-- A lot more.
+The `userguide` module included in all Kohana releases also allows you to view the documentation locally. Once the `userguide` module is enabled in the bootstrap, it is accessible from your site via `/index.php/guide` (or just `/guide` if you are rewriting your URLs).
 
-## A Few Examples
+## Reporting bugs
+If you've stumbled across a bug, please help us out by [reporting the bug](http://dev.kohanaframework.org/projects/kohana3/) you have found. Simply log in or register and submit a new issue, leaving as much information about the bug as possible, e.g.
 
-### Hello World:
+* Steps to reproduce
+* Expected result
+* Actual result
 
-```php
-<?php
-
-Route::get('/', function()
-{
-	return "Hello World!";
-});
-```
-
-### Passing Data To Views:
-
-```php
-<?php
-
-Route::get('user/(:num)', function($id)
-{
-	$user = DB::table('users')->find($id);
-
-	return View::make('profile')->with('user', $user);
-});
-```
-
-### Redirecting & Flashing Data To The Session:
-
-```php
-<?php
-
-return Redirect::to('profile')->with('message', 'Welcome Back!');
-```
-
-## Contributing to Laravel
-
-Contributions are encouraged and welcome; however, please review the Developer
-Certificate of Origin in the "license.txt" file included in the repository. All
-commits must be signed off using the `-s` switch.
-
-```bash
-git commit -s -m "this commit will be signed off automatically!"
-```
-
-## License
-
-Laravel is open-sourced software licensed under the MIT License.
+This will help us to fix the bug as quickly as possible, and if you'd like to fix it yourself feel free to [fork us on GitHub](https://github.com/kohana) and submit a pull request!
