@@ -213,7 +213,7 @@ abstract class Kohana_Controller_Userguide extends Controller_Template {
 			$this->template->title = $class;
 
 			$this->template->content = View::factory('userguide/api/class')
-				->set('doc', $_class)
+				->set('doc', Kodoc::factory($class))
 				->set('route', $this->request->route());
 		}
 
@@ -222,6 +222,9 @@ abstract class Kohana_Controller_Userguide extends Controller_Template {
 
 		// Bind the breadcrumb
 		$this->template->bind('breadcrumb', $breadcrumb);
+
+		// Get the docs URI
+		$guide = Route::get('docs/guide');
 
 		// Add the breadcrumb
 		$breadcrumb = array();
@@ -244,7 +247,7 @@ abstract class Kohana_Controller_Userguide extends Controller_Template {
 		if ($file = Kohana::find_file('media/guide', $file, $ext))
 		{
 			// Check if the browser sent an "if-none-match: <etag>" header, and tell if the file hasn't changed
-			$this->check_cache(sha1($this->request->uri()).filemtime($file));
+			$this->response->check_cache(sha1($this->request->uri()).filemtime($file), $this->request);
 			
 			// Send the file content as the response
 			$this->response->body(file_get_contents($file));

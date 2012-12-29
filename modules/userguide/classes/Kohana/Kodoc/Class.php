@@ -57,7 +57,13 @@ class Kohana_Kodoc_Class extends Kodoc {
 			$this->modifiers = '<small>'.implode(' ', Reflection::getModifierNames($modifiers)).'</small> ';
 		}
 
-		$this->constants = $this->class->getConstants();
+		if ($constants = $this->class->getConstants())
+		{
+			foreach ($constants as $name => $value)
+			{
+				$this->constants[$name] = Debug::vars($value);
+			}
+		}
 
 		// If ReflectionClass::getParentClass() won't work if the class in 
 		// question is an interface
@@ -75,62 +81,34 @@ class Kohana_Kodoc_Class extends Kodoc {
 			}
 		}
 
-		if ( ! $comment = $this->class->getDocComment())
+		$parents = $this->parents;
+
+		array_unshift($parents, $this->class);
+
+		foreach ($parents as $parent)
 		{
-			foreach ($this->parents as $parent)
+			if ($comment = $parent->getDocComment())
 			{
-				if ($comment = $parent->getDocComment())
-				{
-					// Found a description for this class
-					break;
-				}
+				// Found a description for this class
+				break;
 			}
 		}
 
-		list($this->description, $this->tags) = Kodoc::parse($comment, FALSE);
-	}
-
-	/**
-	 * Gets the constants of this class as HTML.
-	 *
-	 * @return  array
-	 */
-	public function constants()
-	{
-		$result = array();
-
-		foreach ($this->constants as $name => $value)
-		{
-			$result[$name] = Debug::vars($value);
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Get the description of this class as HTML. Includes a warning when the
-	 * class or one of its parents could not be found.
-	 *
-	 * @return  string  HTML
-	 */
-	public function description()
-	{
-		$result = $this->description;
-
+		list($this->description, $this->tags) = Kodoc::parse($comment);
+		
 		// If this class extends Kodoc_Missing, add a warning about possible
 		// incomplete documentation
-		foreach ($this->parents as $parent)
+		foreach ($parents as $parent)
 		{
 			if ($parent->name == 'Kodoc_Missing')
 			{
-				$result .= "[!!] **This class, or a class parent, could not be
+				$warning = "[!!] **This class, or a class parent, could not be
 				           found or loaded. This could be caused by a missing
-				           module or other dependancy. The documentation for
-				           class may not be complete!**";
+						   module or other dependancy. The documentation for
+						   class may not be complete!**";
+				$this->description = Kodoc_Markdown::markdown($warning).$this->description;
 			}
 		}
-
-		return Kodoc_Markdown::markdown($result);
 	}
 
 	/**
@@ -142,14 +120,12 @@ class Kohana_Kodoc_Class extends Kodoc {
 	{
 		$props = $this->class->getProperties();
 
-		$defaults = $this->class->getDefaultProperties();
-
 		usort($props, array($this,'_prop_sort'));
 
 		foreach ($props as $key => $property)
 		{
 			// Create Kodoc Properties for each property
-			$props[$key] = new Kodoc_Property($this->class->name, $property->name,  Arr::get($defaults, $property->name));
+			$props[$key] = new Kodoc_Property($this->class->name, $property->name);
 		}
 
 		return $props;
@@ -257,23 +233,4 @@ class Kohana_Kodoc_Class extends Kodoc {
 		return $bdepth - $adepth;
 	}
 
-	/**
-	 * Get the tags of this class as HTML.
-	 *
-	 * @return  array
-	 */
-	public function tags()
-	{
-		$result = array();
-
-		foreach ($this->tags as $name => $set)
-		{
-			foreach ($set as $text)
-			{
-				$result[$name][] = Kodoc::format_tag($name, $text);
-			}
-		}
-
-		return $result;
-	}
-}
+} // End Kodac_Class

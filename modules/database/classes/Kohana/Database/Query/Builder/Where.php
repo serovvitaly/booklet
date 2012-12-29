@@ -97,7 +97,7 @@ abstract class Kohana_Database_Query_Builder_Where extends Database_Query_Builde
 	}
 
 	/**
-	 * Closes an open "WHERE (...)" grouping.
+	 * Closes an open "AND WHERE (...)" grouping.
 	 *
 	 * @return  $this
 	 */
@@ -107,27 +107,7 @@ abstract class Kohana_Database_Query_Builder_Where extends Database_Query_Builde
 	}
 
 	/**
-	 * Closes an open "WHERE (...)" grouping or removes the grouping when it is
-	 * empty.
-	 *
-	 * @return  $this
-	 */
-	public function where_close_empty()
-	{
-		$group = end($this->_where);
-
-		if ($group AND reset($group) === '(')
-		{
-			array_pop($this->_where);
-
-			return $this;
-		}
-
-		return $this->where_close();
-	}
-
-	/**
-	 * Closes an open "WHERE (...)" grouping.
+	 * Closes an open "AND WHERE (...)" grouping.
 	 *
 	 * @return  $this
 	 */
@@ -139,7 +119,7 @@ abstract class Kohana_Database_Query_Builder_Where extends Database_Query_Builde
 	}
 
 	/**
-	 * Closes an open "WHERE (...)" grouping.
+	 * Closes an open "OR WHERE (...)" grouping.
 	 *
 	 * @return  $this
 	 */

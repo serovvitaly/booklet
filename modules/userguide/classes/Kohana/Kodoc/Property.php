@@ -30,12 +30,7 @@ class Kohana_Kodoc_Property extends Kodoc {
 	 */
 	public $value;
 
-	/**
-	 * @var  string  default value of the property
-	 */
-	public $default;
-
-	public function __construct($class, $property, $default = NULL)
+	public function __construct($class, $property)
 	{
 		$property = new ReflectionProperty($class, $property);
 
@@ -50,7 +45,7 @@ class Kohana_Kodoc_Property extends Kodoc {
 
 		if (isset($tags['var']))
 		{
-			if (preg_match('/^(\S*)(?:\s*(.+?))?$/s', $tags['var'][0], $matches))
+			if (preg_match('/^(\S*)(?:\s*(.+?))?$/', $tags['var'][0], $matches))
 			{
 				$this->type = $matches[1];
 
@@ -62,7 +57,7 @@ class Kohana_Kodoc_Property extends Kodoc {
 		}
 
 		$this->property = $property;
-
+		
 		// Show the value of static properties, but only if they are public or we are php 5.3 or higher and can force them to be accessible
 		if ($property->isStatic() AND ($property->isPublic() OR version_compare(PHP_VERSION, '5.3', '>=')))
 		{
@@ -71,7 +66,7 @@ class Kohana_Kodoc_Property extends Kodoc {
 			{
 				$property->setAccessible(TRUE);
 			}
-
+			
 			// Don't debug the entire object, just say what kind of object it is
 			if (is_object($property->getValue($class)))
 			{
@@ -82,9 +77,7 @@ class Kohana_Kodoc_Property extends Kodoc {
 				$this->value = Debug::vars($property->getValue($class));
 			}
 		}
-
-		// Store the defult property
-		$this->default = Debug::vars($default);;
+		
 	}
 
 } // End Kodoc_Property

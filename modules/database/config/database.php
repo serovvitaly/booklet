@@ -4,7 +4,7 @@ return array
 (
 	'default' => array
 	(
-		'type'       => 'MySQL',
+		'type'       => 'mysql',
 		'connection' => array(
 			/**
 			 * The following options are available for MySQL:
@@ -27,9 +27,10 @@ return array
 		'table_prefix' => '',
 		'charset'      => 'utf8',
 		'caching'      => FALSE,
+		'profiling'    => TRUE,
 	),
 	'alternate' => array(
-		'type'       => 'PDO',
+		'type'       => 'pdo',
 		'connection' => array(
 			/**
 			 * The following options are available for PDO:
@@ -52,5 +53,6 @@ return array
 		'table_prefix' => '',
 		'charset'      => 'utf8',
 		'caching'      => FALSE,
+		'profiling'    => TRUE,
 	),
 );

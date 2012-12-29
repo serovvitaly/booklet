@@ -317,17 +317,11 @@ class Kohana_Database_Query_Builder_Select extends Database_Query_Builder_Where 
 	/**
 	 * Compile the SQL query and return it.
 	 *
-	 * @param   mixed  $db  Database instance or name of instance
+	 * @param   object  $db  Database instance
 	 * @return  string
 	 */
-	public function compile($db = NULL)
+	public function compile(Database $db)
 	{
-		if ( ! is_object($db))
-		{
-			// Get the database instance
-			$db = Database::instance($db);
-		}
-
 		// Callback to quote columns
 		$quote_column = array($db, 'quote_column');
 

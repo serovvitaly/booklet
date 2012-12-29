@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct script access.');
 /**
  * Request Client for internal execution
  *
@@ -20,6 +20,15 @@ class Kohana_Request_Client_Internal extends Request_Client {
 	 * Processes the request, executing the controller action that handles this
 	 * request, determined by the [Route].
 	 *
+	 * 1. Before the controller action is called, the [Controller::before] method
+	 * will be called.
+	 * 2. Next the controller action will be called.
+	 * 3. After the controller action is called, the [Controller::after] method
+	 * will be called.
+	 *
+	 * By default, the output from the controller is captured and returned, and
+	 * no headers are sent.
+	 *
 	 *     $request->execute();
 	 *
 	 * @param   Request $request
@@ -27,11 +36,13 @@ class Kohana_Request_Client_Internal extends Request_Client {
 	 * @throws  Kohana_Exception
 	 * @uses    [Kohana::$profiling]
 	 * @uses    [Profiler]
+	 * @deprecated passing $params to controller methods deprecated since version 3.1
+	 *             will be removed in 3.2
 	 */
-	public function execute_request(Request $request, Response $response)
+	public function execute_request(Request $request)
 	{
 		// Create the class prefix
-		$prefix = 'Controller_';
+		$prefix = 'controller_';
 
 		// Directory
 		$directory = $request->directory();
@@ -73,10 +84,8 @@ class Kohana_Request_Client_Internal extends Request_Client {
 		{
 			if ( ! class_exists($prefix.$controller))
 			{
-				throw HTTP_Exception::factory(404,
-					'The requested URL :uri was not found on this server.',
-					array(':uri' => $request->uri())
-				)->request($request);
+				throw new HTTP_Exception_404('The requested URL :uri was not found on this server.',
+													array(':uri' => $request->uri()));
 			}
 
 			// Load the controller using reflection
@@ -84,33 +93,47 @@ class Kohana_Request_Client_Internal extends Request_Client {
 
 			if ($class->isAbstract())
 			{
-				throw new Kohana_Exception(
-					'Cannot create instances of abstract :controller',
-					array(':controller' => $prefix.$controller)
-				);
+				throw new Kohana_Exception('Cannot create instances of abstract :controller',
+					array(':controller' => $prefix.$controller));
 			}
 
 			// Create a new instance of the controller
-			$controller = $class->newInstance($request, $response);
+			$controller = $class->newInstance($request, $request->response() ? $request->response() : $request->create_response());
 
-			// Run the controller's execute() method
-			$response = $class->getMethod('execute')->invoke($controller);
+			$class->getMethod('before')->invoke($controller);
 
-			if ( ! $response instanceof Response)
+			// Determine the action to use
+			$action = $request->action();
+
+			// If the action doesn't exist, it's a 404
+			if ( ! $class->hasMethod('action_'.$action))
 			{
-				// Controller failed to return a Response.
-				throw new Kohana_Exception('Controller failed to return a Response');
+				throw new HTTP_Exception_404('The requested URL :uri was not found on this server.',
+													array(':uri' => $request->uri()));
 			}
-		}
-		catch (HTTP_Exception $e)
-		{
-			// Get the response via the Exception
-			$response = $e->get_response();
+
+			$method = $class->getMethod('action_'.$action);
+			$method->invoke($controller);
+
+			// Execute the "after action" method
+			$class->getMethod('after')->invoke($controller);
 		}
 		catch (Exception $e)
 		{
-			// Generate an appropriate Response object
-			$response = Kohana_Exception::_handler($e);
+			// Restore the previous request
+			if ($previous instanceof Request)
+			{
+				Request::$current = $previous;
+			}
+
+			if (isset($benchmark))
+			{
+				// Delete the benchmark, it is invalid
+				Profiler::delete($benchmark);
+			}
+
+			// Re-throw the exception
+			throw $e;
 		}
 
 		// Restore the previous request
@@ -123,6 +146,6 @@ class Kohana_Request_Client_Internal extends Request_Client {
 		}
 
 		// Return the response
-		return $response;
+		return $request->response();
 	}
 } // End Kohana_Request_Client_Internal

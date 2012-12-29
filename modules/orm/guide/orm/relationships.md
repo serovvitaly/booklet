@@ -37,7 +37,7 @@ If you wanted access a post's author by using code like `$post->author` then you
 
 	protected $_belongs_to = array(
 		'author' => array(
-			'model'       => 'User',
+			'model'       => 'user',
 		),
 	);
 
@@ -68,7 +68,7 @@ Let's assume now you want to access the posts using the name `stories` instead, 
 
 	protected $_has_many = array(
 		'stories' => array(
-			'model'       => 'Post',
+			'model'       => 'post',
 			'foreign_key' => 'author_id',
 		),
 	);
@@ -79,7 +79,7 @@ A `has_one` relationship is almost identical to a `has_many` relationship.  In a
 
 	protected $_has_one = array(
 		'story' => array(
-			'model'       => 'Post',
+			'model'       => 'post',
 			'foreign_key' => 'author_id',
 		),
 	);
@@ -92,7 +92,7 @@ To define the `has_many` "through" relationship, the same syntax for standard ha
 
 	protected $_has_many = array(
 		'categories' => array(
-			'model'   => 'Category',
+			'model'   => 'category',
 			'through' => 'categories_posts',
 		),
 	);
@@ -101,7 +101,7 @@ In the Category model:
 
 	protected $_has_many = array(
 		'posts' => array(
-			'model'   => 'Post',
+			'model'   => 'post',
 			'through' => 'categories_posts',
 		),
 	);

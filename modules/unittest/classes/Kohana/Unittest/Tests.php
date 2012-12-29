@@ -14,6 +14,13 @@ class Kohana_Unittest_Tests {
 	static protected $cache = array();
 
 	/**
+	 * Flag to identify whether the installed version of phpunit
+	 * is greater than or equal to 3.5
+	 * @var boolean
+	 */
+	static protected $phpunit_v35 = FALSE;
+
+	/**
 	 * Loads test files if they cannot be found by kohana
 	 * @param <type> $class
 	 */
@@ -43,6 +50,9 @@ class Kohana_Unittest_Tests {
 
 		spl_autoload_register(array('Unittest_tests', 'autoload'));
 
+		// As of PHPUnit v3.5 there are slight differences in the way files are black|whitelisted
+		self::$phpunit_v35 = function_exists('phpunit_autoload');
+
 		Unittest_tests::$cache = (($cache = Kohana::cache('unittest_whitelist_cache')) === NULL) ? array() : $cache;
 
 	}
@@ -70,7 +80,7 @@ class Kohana_Unittest_Tests {
 		
 		if ($config->use_whitelist)
 		{
-			Unittest_Tests::whitelist(NULL, $suite);
+			$files = Unittest_Tests::whitelist(NULL, $suite);
 		}
 		
 		if (count($config['blacklist']))
@@ -80,6 +90,12 @@ class Kohana_Unittest_Tests {
 
 		// Add tests
 		$files = Kohana::list_files('tests');
+		$config = Kohana::$config->load('unittest');
+		foreach($config->test_blacklist as $bl)
+		{
+			unset($files[$bl]);
+		}
+
 		self::addTests($suite, $files);
 
 		return $suite;
@@ -120,7 +136,14 @@ class Kohana_Unittest_Tests {
 						require_once($file);
 					}
 
-					$suite->addFileToBlacklist($file);
+					if (self::$phpunit_v35)
+					{
+						$suite->addFileToBlacklist($file);
+					}
+					else
+					{
+						PHPUnit_Util_Filter::addFileToFilter($file);
+					}
 				}
 			}
 		}
@@ -134,15 +157,32 @@ class Kohana_Unittest_Tests {
 	 */
 	static public function blacklist(array $blacklist_items, Unittest_TestSuite $suite = NULL)
 	{
-		foreach ($blacklist_items as $item)
+		if (self::$phpunit_v35)
 		{
-			if (is_dir($item))
+			foreach ($blacklist_items as $item)
 			{
-				$suite->addDirectoryToBlacklist($item);
+				if (is_dir($item))
+				{
+					$suite->addDirectoryToBlacklist($item);
+				}
+				else
+				{
+					$suite->addFileToBlacklist($item);
+				}
 			}
-			else
+		}
+		else
+		{
+			foreach ($blacklist_items as $item)
 			{
-				$suite->addFileToBlacklist($item);
+				if (is_dir($item))
+				{
+					PHPUnit_Util_Filter::addDirectoryToFilter($item);
+				}
+				else
+				{
+					PHPUnit_Util_Filter::addFileToFilter($item);
+				}
 			}
 		}
 	}
@@ -162,7 +202,6 @@ class Kohana_Unittest_Tests {
 		{
 			$directories = self::get_config_whitelist();
 		}
-
 		if (count($directories))
 		{
 			foreach ($directories as & $directory)
@@ -173,6 +212,8 @@ class Kohana_Unittest_Tests {
 			// Only whitelist the "top" files in the cascading filesystem
 			self::set_whitelist(Kohana::list_files('classes', $directories), $suite);
 		}
+
+		return $directories;
 	}
 
 	/**

@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct script access.');
 /**
  * STDOUT log writer. Writes out messages to STDOUT.
  *
@@ -9,7 +9,6 @@
  * @license    http://kohanaphp.com/license
  */
 class Kohana_Log_StdOut extends Log_Writer {
-
 	/**
 	 * Writes each of the messages to STDOUT.
 	 *
@@ -20,11 +19,13 @@ class Kohana_Log_StdOut extends Log_Writer {
 	 */
 	public function write(array $messages)
 	{
+		// Set the log line format
+		$format = 'time --- type: body';
+
 		foreach ($messages as $message)
 		{
 			// Writes out each message
-			fwrite(STDOUT, $this->format_message($message).PHP_EOL);
+			fwrite(STDOUT, PHP_EOL.strtr($format, $message));
 		}
 	}
-
 } // End Kohana_Log_StdOut

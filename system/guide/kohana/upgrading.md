@@ -1,100 +1,108 @@
-# Migrating from 3.2.x
+# Migrating from 3.1.x
 
-## HVMC Isolation
+## Config
 
-HVMC Sub-request isolation has been improved to prevent exceptions leaking from this inner to the outer request. If you were previously catching any exceptions from sub-requests, you should now be checking the [Response] object returned from [Request::execute].
+The configuration system has been rewritten to make it more flexible. The most significant change is that config groups are now merged across all readers, similar to how files cascade within the cascading filesystem. Therefore you can now override a single config value (perhaps a database connection string, or a 'send-from' email address) and store it in a separate config source (environment config file / database / custom) while inheriting the remaining settings from that group from your application's configuration files.
 
-## HTTP Exceptions
+In other respects, the majority of the public API should still operate in the same way, however the one major change is the transition from using `Kohana::config()` to `Kohana::$config->load()`, where `Kohana::$config` is an instance of `Config`.
 
-The use of HTTP Exceptions is now encouraged over manually setting the [Response] status to, for example, '404'. This allows for easier custom error pages (detailed below);
+`Config::load()` works almost identically to `Kohana::config()`, e.g.:
 
-The full list of supported codes can be seen in the SYSPATH/classes/HTTP/Exception/ folder.
+	Kohana::$config->load('dot.notation')
+	Kohana::$config->load('dot')->notation
 
-Syntax:
+A simple find/replace for `Kohana::config`/`Kohana::$config->load` within your project should fix this.
 
-    throw HTTP_Exception::factory($code, $message, array $variables, Exception $previous);
+The terminology for config sources has also changed.  Pre 3.2 config was loaded from "Config Readers" which both
+read and wrote config.  In 3.2 there are **Config Readers** and **Config Writers**, both of which are a type of 
+**Config Source**.
 
-Examples:
+A **Config Reader** is implemented by implementing the `Kohana_Config_Reader` interface; similarly a **Config Writer**
+is implemented by implementing the `Kohana_Config_Writer` interface.
 
-    // Page Not Found
-    throw HTTP_Exception::factory(404, 'The requested URL :uri was not found on this server.', array(
-            ':uri' => $this->request->uri(),
-        ));
+e.g. for Database:
 
-    // Unauthorized / Login Requied
-    throw HTTP_Exception::factory(401)->authenticate('Basic realm="MySite"');
+	class Kohana_Config_Database_Reader implements Kohana_Config_Reader
+	class Kohana_Config_Database_Writer extends Kohana_Config_Database_Reader implements Kohana_Config_Writer
 
-    // Forbidden / Permission Deined
-    throw HTTP_Exception::factory(403);
+Although not enforced, the convention is that writers extend config readers.
 
-## Redirects (HTTP 300, 301, 302, 303, 307)
+To help maintain backwards compatability when loading config sources empty classes are provided for the db/file sources
+which extends the source's reader/writer.
 
-Redirects are no longer issued against the [Request] object. The new syntax from inside a controller is:
+e.g.
 
-    $this->redirect('http://www.google.com', 302);
+	class Kohana_Config_File extends Kohana_Config_File_Reader
+	class Kohana_Config_Database extends Kohana_Config_Database_Writer
 
-or from outside a controller:
+## External requests
 
-    HTTP::redirect('http://www.google.com', 302);
+In Kohana 3.2, `Request_Client_External` now has three separate drivers to handle external requests;
 
-## Custom Error Pages (HTTP 500, 404, 403, 401 etc)
+ - `Request_Client_Curl` is the default driver, using the PHP Curl extension
+ - `Request_Client_HTTP` uses the PECL HTTP extension
+ - `Request_Client_Stream` uses streams native to PHP and requires no extensions. However this method is slower than the alternatives.
 
-Custom error pages are now easier than ever to implement, thanks to some of the changes brought about by the HVMC and Redirect changes above.
+Unless otherwise specified, `Request_Client_Curl` will be used for all external requests. This can be changed for all external requests, or for individual requests.
 
-See [Custom Error Pages](tutorials/error-pages) for more details.
+To set an external driver across all requests, add the following to the `application/bootstrap.php` file;
 
-## Browser cache checking (ETags)
+    // Set all external requests to use PECL HTTP
+    Request_Client_External::$client = 'Request_Client_HTTP';
 
-The Response::check_cache method has moved to [HTTP::check_cache], with an alias at [Controller::check_cache]. Previously, this method would be used from a controller like this:
+Alternatively it is possible to set a specific client to an individual Request.
 
-    $this->response->check_cache(sha1('my content'), Request $this->request);
+    // Set the Stream client to an individual request and
+    // Execute
+    $response = Request::factory('http://kohanaframework.org')
+        ->client(new Request_Client_Stream)
+        ->execute();
 
-Now, there are two options for using the method:
+## HTTP cache control
 
-    $this->check_cache(sha1('my content'));
+Kohana 3.1 introduced HTTP cache control, providing RFC 2616 fully compliant transparent caching of responses. Kohana 3.2 builds on this moving all caching logic out of `Request_Client` into `HTTP_Cache`.
 
-which is an alias for:
+[!!] HTTP Cache requires the Cache module to be enabled in all versions of Kohana!
 
-    HTTP::check_cache($this->request, $this->response, sha1('my content'));
+In Kohana 3.1, HTTP caching was enabled doing the following;
 
-## PSR-0 support (file/class naming conventions)
+    // Apply cache to a request
+    $request = Request::factory('foo/bar', Cache::instance('memcache'));
 
-With the introduction of [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) support, the autoloading of classes is case sensitive. Now, the file (and folder) names must match the class name exactly.
+    // In controller, ensure response sets cache control,
+    // this will cache the response for one hour
+    $this->response->headers('cache-control', 
+        'public, max-age=3600');
 
-Examples:
+In Kohana 3.2, HTTP caching is enabled slightly differently;
 
-    Kohana_Core
+    // Apply cache to request
+    $request = Request::factory('foo/bar',
+        HTTP_Cache::factory('memcache'));
 
-would be located in
+    // In controller, ensure response sets cache control,
+    // this will cache the response for one hour
+    $this->response->headers('cache-control', 
+        'public, max-age=3600');
 
-    classes/Kohana/Core.php
+## Controller Action Parameters
 
-and
+In 3.1, controller action parameters were deprecated. In 3.2, these behavior has been removed. If you had any code like:
 
-    Kohana_HTTP_Header
+	public function action_index($id)
+	{
+		// ... code
+	}
 
-would be located in
+You'll need to change it to:
 
-    classes/Kohana/HTTP/Header.php
+	public function action_index()
+	{
+		$id = $this->request->param('id');
 
-This also affects dynamically named classes such as drivers and ORMs. So for example, in the database config using `'mysql'` as the type instead of `'MySQL'` would throw a class not found error.
+		// ... code
+	}
 
-## Query Builder Identifier Escaping
+## Form Class
 
-The query builder will no longer detect columns like `COUNT("*")`. Instead, you will need to use `DB::expr()` any time you need an unescaped column. For example:
-
-    DB::select(DB::expr('COUNT(*)'))->from('users')->execute()
-
-## Route Filters
-
-In `3.3.0`, you can no longer pass a callback to `Route::uri()`. Instead, we've added the ability to define one or more filters which will be able to decide if the route matches and will also allow you to change any of the parameters. These filters will receive the `Route` object being tested, the currently matched `$params` array, and the `Request` object as the three parameters.
-
-    Route::set('route-name', 'some/uri/<id>')
-        ->filter(function($route, $params, $request) {
-            // Returning FALSE will make this route not match
-            // Returning an array will replace the $params sent to the controller
-        });
-
-These filters can be used for things like prepending the request method to the action, checking if a resource exists before matching the route, or any other logic that the URI alone cannot provide. You can add as many filters as needed so it's useful to keep filters as small as possible to make them reusable.
-
-See [Routing](routing#route-filters) for more details.
+If you used Form::open(), the default behavior has changed. It used to default to "/" (your home page), but now an empty parameter will default to the current URI.

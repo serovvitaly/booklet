@@ -175,9 +175,9 @@ class Kohana_InflectorTest extends Unittest_TestCase
 	 *
 	 * @test
 	 * @dataProvider provider_decamelize
-	 * @param string $input Camelized string
-	 * @param string $glue Glue
-	 * @param string $expected Expected string
+	 * @param string Camelized string
+	 * @param string Glue
+	 * @param string Expected string
 	 */
 	public function test_decamelize($input, $glue, $expected)
 	{

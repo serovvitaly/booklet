@@ -113,17 +113,11 @@ class Kohana_Database_Query_Builder_Insert extends Database_Query_Builder {
 	/**
 	 * Compile the SQL query and return it.
 	 *
-	 * @param   mixed  $db  Database instance or name of instance
+	 * @param   object  $db  Database instance
 	 * @return  string
 	 */
-	public function compile($db = NULL)
+	public function compile(Database $db)
 	{
-		if ( ! is_object($db))
-		{
-			// Get the database instance
-			$db = Database::instance($db);
-		}
-
 		// Start an insertion query
 		$query = 'INSERT INTO '.$db->quote_table($this->_table);
 

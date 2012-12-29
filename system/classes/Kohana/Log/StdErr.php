@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct script access.');
 /**
  * STDERR log writer. Writes out messages to STDERR.
  *
@@ -19,11 +19,13 @@ class Kohana_Log_StdErr extends Log_Writer {
 	 */
 	public function write(array $messages)
 	{
+		// Set the log line format
+		$format = 'time --- type: body';
+
 		foreach ($messages as $message)
 		{
 			// Writes out each message
-			fwrite(STDERR, $this->format_message($message).PHP_EOL);
+			fwrite(STDERR, PHP_EOL.strtr($format, $message));
 		}
 	}
-
 } // End Kohana_Log_StdErr

@@ -21,9 +21,7 @@ class Kohana_DateTest extends Unittest_TestCase
 	/**
 	 * Ensures we have a consistant timezone for testing.
 	 */
-	// @codingStandardsIgnoreStart
 	public function setUp()
-	// @codingStandardsIgnoreEnd
 	{
 		parent::setUp();
 
@@ -35,9 +33,7 @@ class Kohana_DateTest extends Unittest_TestCase
 	/**
 	 * Restores original timezone after testing.
 	 */
-	// @codingStandardsIgnoreStart
 	public function tearDown()
-	// @codingStandardsIgnoreEnd
 	{
 		date_default_timezone_set($this->_original_timezone);
 

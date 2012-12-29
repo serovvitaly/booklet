@@ -12,7 +12,7 @@ Kohana 3 does not differentiate between "helper" classes and "library" classes l
 
 To create a new class, simply place a file in the `classes/` directory at any point in the [Cascading Filesystem](files), that follows the [Class naming conventions](conventions#class-names-and-file-location).  For example, lets create a `Foobar` class.
 
-	// classes/Foobar.php
+	// classes/foobar.php
 	
 	class Foobar {
 		static function magic() {
@@ -24,7 +24,7 @@ We can now call `Foobar::magic()` any where and Kohana will [autoload](autoloadi
 
 We can also put classes in subdirectories.
 
-	// classes/Professor/Baxter.php
+	// classes/professor/baxter.php
 	
 	class Professor_Baxter {
 		static function teach() {

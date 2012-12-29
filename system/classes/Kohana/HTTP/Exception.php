@@ -1,31 +1,11 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kohana_HTTP_Exception extends Kohana_Exception {
-
-	/**
-	 * Creates an HTTP_Exception of the specified type.
-	 * 
-	 * @param   integer $code       the http status code
-	 * @param   string  $message    status message, custom content to display with error
-	 * @param   array   $variables  translation variables
-	 * @return  HTTP_Exception
-	 */
-	public static function factory($code, $message = NULL, array $variables = NULL, Exception $previous = NULL)
-	{
-		$class = 'HTTP_Exception_'.$code;
-		
-		return new $class($message, $variables, $previous);
-	}
+class Kohana_HTTP_Exception extends Kohana_Exception {
 
 	/**
-	 * @var  int        http status code
+	 * @var     int      http status code
 	 */
 	protected $_code = 0;
-
-	/**
-	 * @var  Request    Request instance that triggered this exception.
-	 */
-	protected $_request;
 
 	/**
 	 * Creates a new translated exception.
@@ -35,38 +15,20 @@ abstract class Kohana_HTTP_Exception extends Kohana_Exception {
 	 *
 	 * @param   string  $message    status message, custom content to display with error
 	 * @param   array   $variables  translation variables
+	 * @param   integer $code       the http status code
 	 * @return  void
 	 */
-	public function __construct($message = NULL, array $variables = NULL, Exception $previous = NULL)
+	public function __construct($message = NULL, array $variables = NULL, $code = 0)
 	{
-		parent::__construct($message, $variables, $this->_code, $previous);
-	}
+		if ($code == 0)
+		{
+			$code = $this->_code;
+		}
 
-	/**
-	 * Store the Request that triggered this exception.
-	 * 
-	 * @param   Request   $request  Request object that triggered this exception.
-	 * @return  Response
-	 */
-	public function request(Request $request = NULL)
-	{
-		if ($request === NULL)
-			return $this->_request;
-		
-		$this->_request = $request;
+		if ( ! isset(Response::$messages[$code]))
+			throw new Kohana_Exception('Unrecognized HTTP status code: :code . Only valid HTTP status codes are acceptable, see RFC 2616.', array(':code' => $code));
 
-		return $this;
-	}
-
-	/**
-	 * Generate a Response for the current Exception
-	 * 
-	 * @uses   Kohana_Exception::response()
-	 * @return Response
-	 */
-	public function get_response()
-	{
-		return Kohana_Exception::response($this);
+		parent::__construct($message, $variables, $code);
 	}
 
 } // End Kohana_HTTP_Exception
