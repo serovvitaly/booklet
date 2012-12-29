@@ -1,34 +1,21 @@
 <?php
-/**
- * Laravel - A PHP Framework For Web Artisans
- *
- * @package  Laravel
- * @version  3.2.12
- * @author   Taylor Otwell <taylorotwell@gmail.com>
- * @link     http://laravel.com
- */
 
 // --------------------------------------------------------------
-// Tick... Tock... Tick... Tock...
+// Define the directory separator for the environment.
 // --------------------------------------------------------------
-define('LARAVEL_START', microtime(true));
-
-// --------------------------------------------------------------
-// Indicate that the request is from the web.
-// --------------------------------------------------------------
-$web = true;
+define('DS', DIRECTORY_SEPARATOR);
 
 // --------------------------------------------------------------
 // Set the core Laravel path constants.
 // --------------------------------------------------------------
-require '../paths.php';
+require 'paths.php';
 
 // --------------------------------------------------------------
-// Unset the temporary web variable.
+// Bootstrap the Laravel core.
 // --------------------------------------------------------------
-unset($web);
+require path('sys').'core.php';
 
 // --------------------------------------------------------------
-// Launch Laravel.
+// Start the default bundle.
 // --------------------------------------------------------------
-require path('sys').'laravel.php';
+Laravel\Bundle::start(DEFAULT_BUNDLE);
