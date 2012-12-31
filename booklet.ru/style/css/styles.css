@@ -6,3 +6,13 @@ body{
     font-size: 12px;
     line-height: 16px;
 }
+
+
+.flexslider {
+    margin: 0;
+    background: white;
+    border: 0px solid white;
+}
+.flex-control-nav {
+    bottom: 0px;
+}
