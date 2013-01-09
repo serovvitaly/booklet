@@ -10,9 +10,16 @@ body{
 
 .flexslider {
     margin: 0;
-    background: white;
+    background: none;
     border: 0px solid white;
 }
 .flex-control-nav {
     bottom: 0px;
+}
+
+.blend{
+    position: absolute;
+    height: 500px;
+    width: 607px;
+    background: url(/style/img/blend.png) top left;
 }
