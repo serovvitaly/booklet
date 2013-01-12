@@ -35,7 +35,7 @@ class Controller_Connect extends Controller {
         
         if (!$use_cached_file) {
             $use_cached_file = 'ozon_perfum_' . time() . '.xml';
-            if ( !file_put_contents( $cache_dir . $use_cached_file, file_get_contents($xml_uri) ) ) {
+            if ( !file_put_contents( $cache_dir . $use_cached_file, Curl::get($xml_uri) ) ) {
                 $use_cached_file = false;
             }
         }

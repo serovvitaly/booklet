@@ -1,17 +1,57 @@
 <?php defined('SYSPATH') OR die('No direct script access.'); ?>
 
-2013-01-12 13:13:19 --- CRITICAL: Kohana_Exception [ 0 ]: A valid cookie salt is required. Please set Cookie::$salt. ~ SYSPATH\classes\Kohana\Cookie.php [ 152 ] in D:\OPENSERVER\html\booklet\system\classes\Kohana\Cookie.php:67
-2013-01-12 13:13:19 --- DEBUG: #0 D:\OPENSERVER\html\booklet\system\classes\Kohana\Cookie.php(67): Kohana_Cookie::salt('session_payload', NULL)
-#1 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request.php(155): Kohana_Cookie::get('session_payload')
-#2 D:\OPENSERVER\html\booklet\booklet.atwebpages.com\index.php(117): Kohana_Request::factory(true, Array, false)
-#3 {main} in D:\OPENSERVER\html\booklet\system\classes\Kohana\Cookie.php:67
-2013-01-12 13:16:03 --- CRITICAL: Kohana_Exception [ 0 ]: A valid cookie salt is required. Please set Cookie::$salt. ~ SYSPATH\classes\Kohana\Cookie.php [ 152 ] in D:\OPENSERVER\html\booklet\system\classes\Kohana\Cookie.php:67
-2013-01-12 13:16:03 --- DEBUG: #0 D:\OPENSERVER\html\booklet\system\classes\Kohana\Cookie.php(67): Kohana_Cookie::salt('session_payload', NULL)
-#1 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request.php(155): Kohana_Cookie::get('session_payload')
-#2 D:\OPENSERVER\html\booklet\booklet.atwebpages.com\index.php(117): Kohana_Request::factory(true, Array, false)
-#3 {main} in D:\OPENSERVER\html\booklet\system\classes\Kohana\Cookie.php:67
-2013-01-12 13:18:12 --- CRITICAL: Kohana_Exception [ 0 ]: A valid cookie salt is required. Please set Cookie::$salt. ~ SYSPATH\classes\Kohana\Cookie.php [ 152 ] in D:\OPENSERVER\html\booklet\system\classes\Kohana\Cookie.php:67
-2013-01-12 13:18:12 --- DEBUG: #0 D:\OPENSERVER\html\booklet\system\classes\Kohana\Cookie.php(67): Kohana_Cookie::salt('session_payload', NULL)
-#1 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request.php(155): Kohana_Cookie::get('session_payload')
-#2 D:\OPENSERVER\html\booklet\booklet.atwebpages.com\index.php(117): Kohana_Request::factory(true, Array, false)
-#3 {main} in D:\OPENSERVER\html\booklet\system\classes\Kohana\Cookie.php:67
+2013-01-12 16:13:42 --- CRITICAL: ErrorException [ 2 ]: include() [function.include]: http:// wrapper is disabled in the server configuration by allow_url_include=0 ~ SYSPATH\classes\Kohana\Core.php [ 829 ] in D:\OPENSERVER\html\booklet\system\classes\Kohana\Core.php:829
+2013-01-12 16:13:42 --- DEBUG: #0 D:\OPENSERVER\html\booklet\system\classes\Kohana\Core.php(829): Kohana_Core::error_handler(2, 'include() [<a h...', 'D:\OPENSERVER\h...', 829, Array)
+#1 D:\OPENSERVER\html\booklet\system\classes\Kohana\Core.php(829): Kohana_Core::load()
+#2 D:\OPENSERVER\html\booklet\application\classes\Controller\Connect.php(14): Kohana_Core::load('http://static.o...')
+#3 D:\OPENSERVER\html\booklet\system\classes\Kohana\Controller.php(84): Controller_Connect->action_ozon()
+#4 [internal function]: Kohana_Controller->execute()
+#5 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client\Internal.php(97): ReflectionMethod->invoke(Object(Controller_Connect))
+#6 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#7 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request.php(990): Kohana_Request_Client->execute(Object(Request))
+#8 D:\OPENSERVER\html\booklet\booklet.atwebpages.com\index.php(118): Kohana_Request->execute()
+#9 {main} in D:\OPENSERVER\html\booklet\system\classes\Kohana\Core.php:829
+2013-01-12 16:28:49 --- CRITICAL: ErrorException [ 2 ]: curl_setopt_array() [function.curl-setopt-array]: Array keys must be CURLOPT constants or equivalent integer values ~ MODPATH\curl\classes\Kohana\Curl.php [ 53 ] in :
+2013-01-12 16:28:49 --- DEBUG: #0 [internal function]: Kohana_Core::error_handler(2, 'curl_setopt_arr...', 'D:\OPENSERVER\h...', 53, Array)
+#1 D:\OPENSERVER\html\booklet\modules\curl\classes\Kohana\Curl.php(53): curl_setopt_array(Resource id #52, Array)
+#2 D:\OPENSERVER\html\booklet\application\classes\Controller\Connect.php(38): Kohana_Curl::get('http://static.o...')
+#3 D:\OPENSERVER\html\booklet\system\classes\Kohana\Controller.php(84): Controller_Connect->action_ozon()
+#4 [internal function]: Kohana_Controller->execute()
+#5 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client\Internal.php(97): ReflectionMethod->invoke(Object(Controller_Connect))
+#6 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#7 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request.php(990): Kohana_Request_Client->execute(Object(Request))
+#8 D:\OPENSERVER\html\booklet\booklet.atwebpages.com\index.php(118): Kohana_Request->execute()
+#9 {main} in :
+2013-01-12 16:29:05 --- CRITICAL: ErrorException [ 2 ]: curl_setopt_array() [function.curl-setopt-array]: Array keys must be CURLOPT constants or equivalent integer values ~ MODPATH\curl\classes\Kohana\Curl.php [ 52 ] in :
+2013-01-12 16:29:05 --- DEBUG: #0 [internal function]: Kohana_Core::error_handler(2, 'curl_setopt_arr...', 'D:\OPENSERVER\h...', 52, Array)
+#1 D:\OPENSERVER\html\booklet\modules\curl\classes\Kohana\Curl.php(52): curl_setopt_array(Resource id #52, Array)
+#2 D:\OPENSERVER\html\booklet\application\classes\Controller\Connect.php(38): Kohana_Curl::get('http://static.o...')
+#3 D:\OPENSERVER\html\booklet\system\classes\Kohana\Controller.php(84): Controller_Connect->action_ozon()
+#4 [internal function]: Kohana_Controller->execute()
+#5 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client\Internal.php(97): ReflectionMethod->invoke(Object(Controller_Connect))
+#6 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#7 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request.php(990): Kohana_Request_Client->execute(Object(Request))
+#8 D:\OPENSERVER\html\booklet\booklet.atwebpages.com\index.php(118): Kohana_Request->execute()
+#9 {main} in :
+2013-01-12 16:29:11 --- CRITICAL: ErrorException [ 2 ]: curl_setopt_array() [function.curl-setopt-array]: Array keys must be CURLOPT constants or equivalent integer values ~ MODPATH\curl\classes\Kohana\Curl.php [ 52 ] in :
+2013-01-12 16:29:11 --- DEBUG: #0 [internal function]: Kohana_Core::error_handler(2, 'curl_setopt_arr...', 'D:\OPENSERVER\h...', 52, Array)
+#1 D:\OPENSERVER\html\booklet\modules\curl\classes\Kohana\Curl.php(52): curl_setopt_array(Resource id #52, Array)
+#2 D:\OPENSERVER\html\booklet\application\classes\Controller\Connect.php(38): Kohana_Curl::get('http://static.o...')
+#3 D:\OPENSERVER\html\booklet\system\classes\Kohana\Controller.php(84): Controller_Connect->action_ozon()
+#4 [internal function]: Kohana_Controller->execute()
+#5 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client\Internal.php(97): ReflectionMethod->invoke(Object(Controller_Connect))
+#6 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#7 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request.php(990): Kohana_Request_Client->execute(Object(Request))
+#8 D:\OPENSERVER\html\booklet\booklet.atwebpages.com\index.php(118): Kohana_Request->execute()
+#9 {main} in :
+2013-01-12 16:29:11 --- CRITICAL: ErrorException [ 2 ]: curl_setopt_array() [function.curl-setopt-array]: Array keys must be CURLOPT constants or equivalent integer values ~ MODPATH\curl\classes\Kohana\Curl.php [ 52 ] in :
+2013-01-12 16:29:11 --- DEBUG: #0 [internal function]: Kohana_Core::error_handler(2, 'curl_setopt_arr...', 'D:\OPENSERVER\h...', 52, Array)
+#1 D:\OPENSERVER\html\booklet\modules\curl\classes\Kohana\Curl.php(52): curl_setopt_array(Resource id #52, Array)
+#2 D:\OPENSERVER\html\booklet\application\classes\Controller\Connect.php(38): Kohana_Curl::get('http://static.o...')
+#3 D:\OPENSERVER\html\booklet\system\classes\Kohana\Controller.php(84): Controller_Connect->action_ozon()
+#4 [internal function]: Kohana_Controller->execute()
+#5 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client\Internal.php(97): ReflectionMethod->invoke(Object(Controller_Connect))
+#6 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request\Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#7 D:\OPENSERVER\html\booklet\system\classes\Kohana\Request.php(990): Kohana_Request_Client->execute(Object(Request))
+#8 D:\OPENSERVER\html\booklet\booklet.atwebpages.com\index.php(118): Kohana_Request->execute()
+#9 {main} in :
