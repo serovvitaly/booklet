@@ -46,7 +46,29 @@ class Controller_Connect extends Controller {
         
         $xml = simplexml_load_file($cache_dir . $use_cached_file);
         
-        echo $xml->shop->name;
+        if (count($xml->shop->offers->children()) > 0) {
+            foreach ($xml->shop->offers->children() AS $offer) {
+                
+                $product = ORM::factory('product');
+                
+                $product->values(array(
+                    'name'        => $offer->name,
+                    'vendor'      => $offer->vendor,
+                    'description' => $offer->description,
+                    'barcode'     => $offer->barcode,
+                    'currencyId'  => $offer->currencyId,
+                    'price'       => $offer->price,
+                    'delivery'    => $offer->delivery,
+                    'categoryId'  => $offer->categoryId,
+                    'url'         => $offer->url,
+                    'picture'     => $offer->picture,
+                    'last_update' => date('Y-m-d H:i:s')
+                ));
+                
+                $product->save();                
+            }
+        }
+        
     }
 
 } // End

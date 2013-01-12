@@ -45,15 +45,20 @@ abstract class Kohana_Curl {
     
     public static function get($uri)
     {
-        $curl = curl_init($uri);
+        $curl = curl_init();
         
         curl_setopt_array($curl, array(
-            CURLOPT_HEADER => false
+            CURLOPT_URL    => $uri,
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_POST => 0,
         ));
         
         $response = curl_exec($curl);
         
         curl_close($curl);
+        
+        return $response;
     }
 
 
