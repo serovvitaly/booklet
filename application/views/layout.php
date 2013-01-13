@@ -8,8 +8,14 @@
   <link rel="stylesheet" type="text/css" href="/style/default/css/style.css">
 </head>
 <body>
+  <?= View::factory('_common/topmenu', array('brends' => $brends)) ?>
   <div class="container-fluid main">
     <?= $content ?>
   </div>
+  
+  
+  <script type="text/javascript" src="/vendor/jquery/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  
 </body>
 </html>
