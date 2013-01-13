@@ -7,6 +7,8 @@
   <link rel="stylesheet" type="text/css" href="/style/default/css/bootstrap.fixed.css">
 </head>
 <body>
-  <?= $content ?>
+  <div class="container-fluid">
+    <?= $content ?>
+  </div>
 </body>
 </html>
