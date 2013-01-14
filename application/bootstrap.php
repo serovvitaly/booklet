@@ -141,18 +141,26 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 */
 define('UID', isset($_GET['user_id']) ? $_GET['user_id'] : NULL);
 
-$user = Auth::instance()->login(UID, UID);
-
-if (!$user) {
-    ORM::factory('User')->values(array(
-        'uid'      => UID,
-        'password' => Auth::instance()->hash(UID),
-        'vendor'   => 'vvk'
-    ))->save();
-    
+if ( !Auth::instance()->logged_in() ) {
     $user = Auth::instance()->login(UID, UID);
+    
+    if (!$user) {
+        ORM::factory('User')->values(array(
+            'uid'      => UID,
+            'password' => Auth::instance()->hash(UID),
+            'vendor'   => 'vvk'
+        ))->save();
+        
+        $user = Auth::instance()->login(UID, UID);
+    }
+}
+else {
+    $user = true;
 }
 
-$user = $user ? ORM::factory('User', Auth::instance()->get_user()) : NULL;
 
-define('USER', $user);
+
+
+$user_id = $user ? Auth::instance()->get_user() : 0;
+
+define('USER_ID', $user_id);

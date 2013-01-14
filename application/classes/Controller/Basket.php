@@ -8,6 +8,18 @@ class Controller_Basket extends Controller {
     
     protected $out     = array();
     
+    protected $user    = NULL;
+    
+    public function before()
+    {
+        if (USER_ID <= 0) {
+            $this->out['error'] = 'Access denied';
+            return;
+        }
+        
+        $this->user = ORM::factory('User', USER_ID);
+    }
+    
     
     public function after()
     {        
@@ -23,17 +35,10 @@ class Controller_Basket extends Controller {
     * 
     */
     public function action_add()
-    {      
-        if (UID <= 0) {
-            $this->out['error'] = 'Access denied';
-            return;
-        }
+    {           
+        $this->user->add_to_basket($_POST['quantity'], $_POST['barcode'], 'barcode');
         
-        $user = ORM::factory('User')->go(UID);
-        
-        $user->add_to_basket($_POST['quantity'], $_POST['barcode'], 'barcode');
-        
-        $this->result = $user->get_basket();        
+        $this->result = $this->user->get_basket();        
     }
 
 } // End

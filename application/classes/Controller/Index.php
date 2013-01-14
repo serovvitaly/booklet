@@ -11,9 +11,10 @@ class Controller_Index extends Controller_Base {
         
         $basket_content = 'Корзина пуста';
         
-        if (USER > 0) {
-            return;
-            $user = USER;
+        if (USER_ID > 0) {
+            
+            $user = ORM::factory('User', USER_ID);
+            
             $user_basket = $user->get_basket();
             
             if ($user_basket['total_count'] > 0) {
