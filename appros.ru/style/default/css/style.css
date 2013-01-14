@@ -10,6 +10,7 @@ body{
     width: 607px;
     height: 675px;
     overflow: scroll;
+    padding: 0;
     padding-top: 1px;
     background: #F7F7F7;
 }

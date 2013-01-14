@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="margin: 0;">
 <?
 if (isset($products) AND count($products) > 0) {
     $counter = 1;
