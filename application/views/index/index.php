@@ -21,7 +21,7 @@ if (isset($products) AND count($products) > 0) {
         <table><tr>
           <td class="p-price"><?= $product->price ?> <sup>руб.</sup></td>
           <td class="p-count"><input type="text" value="1"></td>
-          <td class="p-action"><a href="#" onclick="addToBasket('<?= $product->barcode ?>'); return false;">в корзину</a></td>
+          <td class="p-action"><a href="#" onclick="orderWindow('<?= $product->barcode ?>'); return false;">КУПИТЬ</a></td>
         </tr></table>
       </div>
       <div class="product-link-box">
@@ -69,6 +69,13 @@ function addToBasket(barcode)
             $('#product-' + barcode + ' .blocker').remove();
             $('#product-' + barcode + ' .p-count input').val(1);
         }
+    });
+}
+
+function orderWindow(articul){
+    VK.callMethod("showOrderBox", {
+        type: 'item',
+        item: articul
     });
 }
 </script>
