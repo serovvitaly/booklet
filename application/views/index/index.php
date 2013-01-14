@@ -24,10 +24,13 @@ if (isset($products) AND count($products) > 0) {
       </div>
       <div class="product-link-box">
         <table><tr>
-          <td class="color-gray"><a href="#">подробнее</a></td>
-          <td class="color-blue"><a href="#">сравнить</a></td>
-          <td class="color-red"><a href="#">поделиться</a></td>
+          <td><a href="#">подробнее</a></td>
+          <td><a href="#">сравнить</a></td>
+          <td><a href="#">поделиться</a></td>
         </tr></table>
+      </div>
+      <div>
+        <img src="/style/default/img/hearts.png" alt="">
       </div>
   </div></div>
 <?
