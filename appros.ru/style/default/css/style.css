@@ -8,7 +8,7 @@ body{
 }
 .container-fluid.main{
     width: 700px;
-    height: 675px;
+    height: 840px;
     overflow: scroll;
     padding: 0;
     padding-top: 1px;
@@ -22,7 +22,7 @@ body{
     margin: 0 -1px -1px 0;
     width: 228px;
     float: left;
-    height: 170px;
+    height: 269px;
     background: #FFFFFF;
 }
 .product-item.strip-row{
@@ -36,12 +36,13 @@ body{
     
 }
 .product-item .product-image-mini{
-    border: 1px solid #E7EAED;
-    padding: 3px;
-    margin-right: 5px;
+    
 }
 .product-item .product-title-box{
-    height: 72px;
+    height: 45px;
+    text-align: center;
+    padding: 0 10px;
+    margin-top: 10px;
 }
 
 .product-item .product-basket-box{

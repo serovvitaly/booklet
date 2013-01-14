@@ -8,9 +8,11 @@ if (isset($products) AND count($products) > 0) {
         }
 ?>  
   <div id="product-<?= $product->barcode ?>" class="span2 product-item<?= $counter <= 3 ? ' strip-row' : '' ?>"><div class="product-item-wrapper">
-      <a class="pull-left" href="#">
-        <img class="product-image-mini" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="<?= $product->picture ?>">
-      </a>
+      <div style="text-align: center;">
+        <a href="#">
+          <img class="product-image-mini" data-src="holder.js/120x120" alt="120x120" style="width: 120px; height: 120px;" src="<?= $product->picture ?>">
+        </a>
+      </div>
       <div class="product-title-box">
         <a href="#"><?= $product->name ?></a>
         <? /*$product->description*/ ?>
