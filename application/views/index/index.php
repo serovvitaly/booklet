@@ -45,7 +45,11 @@ function addToBasket(barcode)
 {
     if (barcode == '' || !barcode) return false;
     
+    // blocker
+    $('#product-' + barcode + ' .product-basket-box').before('<div class="blocker"></div>');
+    
     this.quantity = $('#product-' + barcode + ' .p-count input').val();
+    
     
     $('#basket-icon').attr('class', 'icon-shopping-cart-loader');
     
@@ -60,6 +64,8 @@ function addToBasket(barcode)
             $('#basket-content').html('товаров - ' + data.result.total_count + ', на ' + data.result.summa + ' руб.');
             $('#basket-menu').css('display', 'inline-block');
             $('#basket-icon').attr('class', 'icon-shopping-cart');
+            $('#product-' + barcode + ' .blocker').remove();
+            $('#product-' + barcode + ' .p-count input').val(1);
         }
     });
 }

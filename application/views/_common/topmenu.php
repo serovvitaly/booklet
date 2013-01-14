@@ -18,7 +18,8 @@
           }
           ?>
         </ul>
-      </li>      
+      </li> 
+      <? /*     
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">ФИЛЬТР <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -26,7 +27,7 @@
           <li><a href="#"><input type="checkbox"> мужские</a></li>
           <li><a href="#"><input type="checkbox"> унисекс</a></li>
         </ul>
-      </li>
+      </li> */ ?>
       <li class="divider-vertical"></li>      
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Помощь <b class="caret"></b></a>

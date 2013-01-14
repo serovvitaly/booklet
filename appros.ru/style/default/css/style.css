@@ -82,6 +82,20 @@ body{
     width: 50px;
 }
 
+.product-item .blocker{
+    position: relative;
+    width: 187px;
+    height: 34px;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    margin-top: 5px;
+    background: #E5E9EE url("../img/ajax-loader.gif") no-repeat center;
+    z-index: 10;
+    margin-bottom: -39px;
+}
+
+
+
 .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
     background: none;
 }
