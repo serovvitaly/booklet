@@ -17,14 +17,16 @@ body{
 
 .product-item{
     border: 1px solid #E7EAED;
+    border-bottom-width: 5px;
+    border-bottom-color: #D9E0E7;
     margin: 0 -1px -1px 0;
     width: 197px;
     float: left;
-    height: 165px;
+    height: 170px;
     background: #FFFFFF;
 }
 .product-item.strip-row{
-    background: #F8F8F2;
+    /*background: #F8F8F2;*/
 }
 .product-item .product-item-wrapper{
     padding: 5px;
@@ -55,7 +57,7 @@ body{
     
 }
 .product-item .product-basket-box .p-price{
-    font-size: 21px;
+    font-size: 20px;
     padding-right: 10px;
     text-align: right;
     font-style: italic;
@@ -104,9 +106,11 @@ body{
 .product-link-box table td:hover{
     background: #4e7199;
 }
+.product-link-box table td:hover a{
+    color: #FFFFFF;
+}
 .product-link-box table td a:hover{
     text-decoration: none;
-    color: #FFFFFF;
 }
 
 
