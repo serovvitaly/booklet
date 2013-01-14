@@ -1,5 +1,5 @@
 <a class="logo" href="/" title="На стартовую"><img src="/style/default/img/logo.png"></a>
-<div class="navbar" style="margin: 0; width: 607px;">
+<div class="navbar" style="margin: 0; width: 700px;">
   <div class="navbar-inner">
     <a class="brand" href="#">;)</a>
     <ul class="nav">      
