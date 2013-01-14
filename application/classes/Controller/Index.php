@@ -6,7 +6,7 @@ class Controller_Index extends Controller_Base {
 	{        
         $this->template->content = View::factory('index/index');
         
-		$this->template->content->products = ORM::factory('Product')->limit(20)->find_all();
+		$this->template->content->products = ORM::factory('Product')->limit(42)->find_all();
 	}
 
 } // End

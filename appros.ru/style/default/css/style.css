@@ -1,6 +1,83 @@
+.logo{
+    position: absolute;
+    top: 0;
+}
+body{
+    padding-top: 22px;
+    background: #F7F7F7;
+}
 .container-fluid.main{
     width: 607px;
-    height: 700px;
+    height: 675px;
     overflow: scroll;
-    padding-top: 10px;
+    padding-top: 1px;
+    background: #F7F7F7;
+}
+
+.product-item{
+    border: 1px solid #E7EAED;
+    margin: 0 -1px -1px 0;
+    width: 197px;
+    float: left;
+    height: 165px;
+    background: #FFFFFF;
+}
+.product-item.strip-row{
+    background: #F8F8F2;
+}
+.product-item .product-item-wrapper{
+    padding: 5px;
+    overflow: hidden;
+}
+.product-item .pull-left{
+    
+}
+.product-item .product-image-mini{
+    border: 1px solid #E7EAED;
+    padding: 3px;
+    margin-right: 5px;
+}
+.product-item .product-title-box{
+    height: 72px;
+}
+
+.product-item .product-basket-box{
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dotted #E7EAED;
+}
+.product-item .product-basket-box table{
+    width: 100%;
+}
+.product-item .product-basket-box td{
+    
+}
+.product-item .product-basket-box .p-price{
+    font-size: 21px;
+    padding-right: 10px;
+    text-align: right;
+    font-style: italic;
+    font-family: georgia;
+}
+.product-item .product-basket-box .p-price sup{
+    font-size: 11px;
+}
+.product-item .product-basket-box .p-count{
+    width: 18px;
+}
+.product-item .product-basket-box .p-count input{
+    padding: 1px;
+    font-size: 11px;
+    height: 16px;
+    width: 18px;
+    margin: 0;
+    text-align: center;
+}
+.product-item .product-basket-box .p-action{
+    padding-left: 10px;
+    width: 50px;
+}
+
+.navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
+    background: none;
 }
