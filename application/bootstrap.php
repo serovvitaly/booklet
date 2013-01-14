@@ -2,6 +2,10 @@
 
 // -- Environment setup --------------------------------------------------------
 
+define('VENDOR_VK', 'vkontacte');
+define('VENDOR_OK', 'odnoklassniki');
+define('VENDOR_FB', 'facebook');
+
 // Load the core Kohana class
 require SYSPATH.'classes/Kohana/Core'.EXT;
 
@@ -107,7 +111,7 @@ Kohana::$config->attach(new Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
-	// 'auth'       => MODPATH.'auth',       // Basic authentication
+	   'auth'       => MODPATH.'auth',       // Basic authentication
 	// 'cache'      => MODPATH.'cache',      // Caching with multiple backends
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
 	   'database'   => MODPATH.'database',   // Database access
@@ -130,3 +134,9 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'controller' => 'index',
 		'action'     => 'index',
 	));
+
+
+/**
+* Устанавливаем UID пользователя соцсети, в данном случае - для Вконтакте
+*/
+define('UID', isset($_GET['user_id']) ? $_GET['user_id'] : NULL);

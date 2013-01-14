@@ -27,12 +27,17 @@
           <li><a href="#"><input type="checkbox"> унисекс</a></li>
         </ul>
       </li>
-      <li class="divider-vertical"></li>
-      <li><a href="/help/delivery/">Оплата и доставка</a></li>
-      <li><a href="/help/rules/">Правила</a></li>
+      <li class="divider-vertical"></li>      
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Помощь <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/help/delivery/">Оплата и доставка</a></li>
+          <li><a href="/help/rules/">Правила</a></li>
+        </ul>
+      </li>      
     </ul>
     <ul class="nav pull-right">
-      <li class="active"><a href="#" onclick="return false;"><i class="icon-shopping-cart" style="padding-right: 5px;"></i> Корзина пуста</a></li>
+      <li class="active"><a href="#" onclick="return false;"><i class="icon-shopping-cart" style="padding-right: 5px;"></i> <span id="basket-instance"><?= $basket['content'] ?></span></a></li>
     </ul>
   </div>
 </div>
