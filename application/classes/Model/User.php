@@ -1,13 +1,30 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Model_User extends ORM {
-
+    
     protected $_has_many = array(
         'orders' => array(
             'model'       => 'Order',
             'foreign_key' => 'user_id',
         ),
+        'roles' => array(
+            'model'       => 'Role',
+            'through'     => 'users_roles',
+        )
     );
+    
+    
+    public function unique_key($username = NULL)
+    {
+        return 'uid';
+    }
+    
+    
+    public function complete_login()
+    {
+        //
+    }
+    
     
     /**
     * Возвращает объект пользователя, если пользователя не существует,
