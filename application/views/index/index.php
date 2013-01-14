@@ -22,6 +22,13 @@ if (isset($products) AND count($products) > 0) {
           <td class="p-action"><a href="#" onclick="addToBasket('<?= $product->barcode ?>'); return false;">в корзину</a></td>
         </tr></table>
       </div>
+      <div class="product-link-box">
+        <table><tr>
+          <td class="color-gray"><a href="#">подробнее</a></td>
+          <td class="color-blue"><a href="#">сравнить</a></td>
+          <td class="color-red"><a href="#">поделиться</a></td>
+        </tr></table>
+      </div>
   </div></div>
 <?
         $counter++;

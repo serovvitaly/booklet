@@ -43,9 +43,10 @@ body{
 }
 
 .product-item .product-basket-box{
-    margin-top: 5px;
-    padding-top: 5px;
+    margin: 5px 0;
+    padding: 5px 0;
     border-top: 1px dotted #E7EAED;
+    border-bottom: 1px dotted #E7EAED;
 }
 .product-item .product-basket-box table{
     width: 100%;
@@ -86,4 +87,56 @@ body{
 
 .icon-shopping-cart-loader{
     background: url("../img/ajax-loader.gif") no-repeat;
+}
+
+
+.product-link-box{
+    margin-top: 10px;
+}
+.product-link-box table{
+    width: 100%;
+}
+.product-link-box table td{
+    padding: 0 1px 2px;
+    text-align: center;
+}
+.product-link-box table td a:hover{
+    text-decoration: none;
+}
+
+.color-gray{
+    
+}
+.color-gray a{
+    color: #585858;
+}
+.color-gray:hover{
+    background: #585858;
+}
+.color-gray:hover a{
+    color: #FFFFFF;
+}
+.color-blue{
+    
+}
+.color-blue a{
+    color: #024AB7;
+}
+.color-blue:hover{
+    background: #024AB7;
+}
+.color-blue:hover a{
+    color: #FFFFFF;
+}
+.color-red{
+    
+}
+.color-red a{
+    color: #BB0000;
+}
+.color-red:hover{
+    background: #BB0000;
+}
+.color-red:hover a{
+    color: #FFFFFF;
 }
