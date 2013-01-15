@@ -63,7 +63,7 @@
                 $('#basket-menu').css('display', 'inline-block');
                 
                 // сбрасываем все поля ввода количества товара
-                $('.product-item .p-count input').val(1);
+                $('.product-item input.p-count').val(1);
                 
                 // убираем гифку прелодера из корзины
                 $('#basket-icon').attr('class', 'icon-shopping-cart');
@@ -78,7 +78,7 @@
     function orderWindow(articul){
         VK.callMethod("showOrderBox", {
             type: 'item',
-            item: 'ar-' + articul + '_ct-' + $('#product-' + articul + ' .p-count input').val()
+            item: 'ar-' + articul + '_ct-' + $('#product-' + articul + ' input.p-count').val()
         });
     }
   

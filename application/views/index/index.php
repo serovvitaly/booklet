@@ -25,7 +25,7 @@ if (isset($products) AND count($products) > 0) {
       </div>
       <div class="product-basket-box">
         <table><tr>
-          <td class="p-left"><input type="text" value="1"></td>
+          <td class="p-left"><input class="p-count" type="text" value="1"></td>
           <td class="p-right"><a href="#" onclick="orderWindow('<?= $product->barcode ?>'); return false;">КУПИТЬ <i class="icon-shopping-cart"></i></a></td>
         </tr></table>
       </div>
