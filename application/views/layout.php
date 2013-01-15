@@ -15,8 +15,8 @@
   <script type="text/javascript">
     $(document).ready(function(){
         VK.init(function() {
-            // API initialization succeeded
-            // Your code here
+            //apiId: 3355850
+            //
         });
 
         /**
@@ -86,7 +86,7 @@
   
 </head>
 <body>
-  <?= View::factory('_common/topmenu', array('brends' => $brends, 'basket' => $basket)) ?>
+  <?= View::factory('_common/topmenu', array('brends' => $brends)) ?>
   <div class="container-fluid main">
     <?= $content ?>
   </div>

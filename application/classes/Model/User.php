@@ -14,18 +14,6 @@ class Model_User extends ORM {
     );
     
     
-    public function unique_key($username = NULL)
-    {
-        return 'uid';
-    }
-    
-    
-    public function complete_login()
-    {
-        //
-    }
-    
-    
     /**
     * Возвращает объект пользователя, если пользователя не существует,
     * то сначала создает его, а потом возвращает.

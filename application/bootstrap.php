@@ -140,31 +140,12 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 * Устанавливаем UID пользователя соцсети, в данном случае - для Вконтакте
 */
 
-define('UID', isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : NULL);
-
-if ( !Auth::instance()->logged_in() ) {
-    $user = Auth::instance()->login(UID, UID);
-    
-    if (!$user) {
-        ORM::factory('User')->values(array(
-            'uid'      => UID,
-            'password' => Auth::instance()->hash(UID),
-            'vendor'   => VENDOR_VK
-        ))->save();
-        
-        $user = Auth::instance()->login(UID, UID);
-    }
-}
-else {
-    $user = true;
-}
 
 
 
+define('VK_UID', isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : NULL);
 
-$user_id = $user ? Auth::instance()->get_user() : 0;
-
-define('USER_ID', $user_id);
+define('USER_ID', VK_UID);
 
 // Ставка Вконтакте, 1 голос = 7 рублей
 define('VK_RATE', 7);

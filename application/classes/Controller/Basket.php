@@ -40,17 +40,5 @@ class Controller_Basket extends Controller {
         
         $this->result = $this->user->get_basket();        
     }
-    
-    
-    /**
-    * Добавляет заказ в корзину
-    * 
-    */
-    public function action_add()
-    {           
-        $this->user->add_to_basket($_POST['quantity'], $_POST['barcode'], 'barcode');
-        
-        $this->result = $this->user->get_basket();        
-    }
 
 } // End

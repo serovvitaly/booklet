@@ -88,15 +88,15 @@ class Controller_Callback extends Controller {
                 
                 if ($product AND $product->id > 0) {
                     
-                    $uid = $this->request->post('user_id');
+                    $user_id = $this->request->post('user_id');
                 
-                    if ($uid > 0) {                    
+                    if ($user_id > 0) {                    
                         
                         $order = ORM::factory('Order');
                         
                         $order_result = $order->values(array(
-                            'user_id'      => USER_ID,
-                            'uid'          => $uid,
+                            'user_id'      => $user_id,
+                            'uid'          => VK_UID,
                             'vendor'       => VENDOR_VK,
                             'vendor_price' => $this->request->post('item_price'),
                             'vendor_rate'  => VK_RATE,
