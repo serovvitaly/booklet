@@ -106,9 +106,14 @@ body{
     padding-left: 0px;
 }
 .product-item .product-basket-box .p-right a{
-    font-size: 11px;
     color: #005580;
-    padding: 3px 5px 3px 7px;
+    display: block;
+    font-size: 11px;
+    line-height: 19px;
+    padding-left: 2px;
+    text-align: center;
+    width: 72px;
+    height: 20px;
 }
 .product-item .product-basket-box .p-right a:hover{
     font-size: 11px;
