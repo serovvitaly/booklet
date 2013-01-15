@@ -24,6 +24,7 @@
         */
         VK.addCallback('onOrderCancel', function(){
             //
+            clearItems();
         });
 
         /**
@@ -31,6 +32,7 @@
         */
         VK.addCallback('onOrderSuccess', function(orderId){
             addToBasket(orderId);
+            clearItems();
         });
 
         /**
@@ -38,15 +40,25 @@
         */
         VK.addCallback('onOrderFail', function(errorCode){
             //
+            clearItems();
         });
     }); 
   
   
     /**
+    * Сбрасывает товары на дефолтовые установки
+    */
+    function clearItems(){
+        // сбрасываем все поля ввода количества товара
+        $('.product-item input.p-count').val(1);
+    }
+  
+  
+    /**
     * Добавляет покупку в корзину
     */
-    function addToBasket(orderId)
-    {
+    function addToBasket(orderId){
+        
         if (orderId == '' || !orderId || orderId <= 0) return false;
         
         // ставим гифку прелодера в корзину
@@ -61,9 +73,6 @@
             success: function(data){            
                 $('#basket-content').html('товаров - ' + data.result.total_count + ', на ' + data.result.summa + ' руб.');
                 $('#basket-menu').css('display', 'inline-block');
-                
-                // сбрасываем все поля ввода количества товара
-                $('.product-item input.p-count').val(1);
                 
                 // убираем гифку прелодера из корзины
                 $('#basket-icon').attr('class', 'icon-shopping-cart');
