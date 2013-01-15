@@ -9,7 +9,7 @@ body{
 .container-fluid.main{
     width: 700px;
     height: 840px;
-    overflow: scroll;
+    overflow-x: auto;
     padding: 0;
     padding-top: 1px;
     background: #F7F7F7;
@@ -20,9 +20,8 @@ body{
     border-bottom-width: 5px;
     border-bottom-color: #D9E0E7;
     margin: 0 -1px -1px 0;
-    width: 228px;
+    width: 234px;
     float: left;
-    height: 275px;
     background: #FFFFFF;
 }
 .product-item.strip-row{
@@ -169,4 +168,15 @@ body{
 }
 .color-red:hover a{
     color: #FFFFFF;
+}
+
+
+
+.pagination-fixed-bottom{
+    background: none repeat scroll 0 0 #FFFFFF;
+    bottom: 0;
+    margin: 0;
+    width: 683px;
+    position: fixed;
+    bottom:0;
 }
