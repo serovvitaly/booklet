@@ -148,7 +148,7 @@ if ( !Auth::instance()->logged_in() ) {
         ORM::factory('User')->values(array(
             'uid'      => UID,
             'password' => Auth::instance()->hash(UID),
-            'vendor'   => 'vvk'
+            'vendor'   => VENDOR_VK
         ))->save();
         
         $user = Auth::instance()->login(UID, UID);
