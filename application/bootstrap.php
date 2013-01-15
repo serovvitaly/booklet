@@ -139,7 +139,8 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 /**
 * Устанавливаем UID пользователя соцсети, в данном случае - для Вконтакте
 */
-define('UID', isset($_GET['user_id']) ? $_GET['user_id'] : NULL);
+
+define('UID', isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : NULL);
 
 if ( !Auth::instance()->logged_in() ) {
     $user = Auth::instance()->login(UID, UID);

@@ -61,7 +61,7 @@ class Model_User extends ORM {
     {
         $orders_table = 'bk_' . $this->orders->table_name();
         
-        $query = DB::query(Database::SELECT, "SELECT SUM(quantity) AS total_count, SUM(actual_price*quantity) AS summa FROM {$orders_table} WHERE user_id = {$this->id} AND status = 0");
+        $query = DB::query(Database::SELECT, "SELECT SUM(quantity) AS total_count, SUM(actual_price*quantity) AS summa FROM {$orders_table} WHERE uid = {$this->uid} AND status = 0");
         
         $result = $query->execute();
         
