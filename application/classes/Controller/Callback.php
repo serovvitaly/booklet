@@ -32,18 +32,29 @@ class Controller_Callback extends Controller {
         
         $_out = NULL;
         
+        $notification_type = 'get_item_test';
+        
         switch ($notification_type) {
             
             //получение информации о товаре
             case 'get_item_test':
-                $item_articul = $this->request->post('item');
+                $item = $this->request->post('item');
                 
-                $product = ORM::factory('Product')->where('barcode', '=', $item_articul)->find();
+                $item = 'ar-235345235_ct-4';
                 
-                if ($product->id > 0) {
+                preg_match('/ar\-([0-9]+)_ct\-([0-9]+)/', $item, $item_mix);
+                
+                var_dump($item_mix);
+                
+                $item_articul = (isset($item_mix[1]) AND $item_mix[1] > 0) ? $item_mix[1] : NULL;
+                $item_count   = (isset($item_mix[2]) AND $item_mix[2] > 0) ? $item_mix[2] : 1;
+                
+                $product = $item_articul ? ORM::factory('Product')->where('barcode', '=', $item_articul)->find() : NULL;
+                
+                if ($product AND $product->id > 0) {
                     $_out = array('response' => array(
-                        'title'      => $product->name,
-                        'price'      => $product->price . '.95',
+                        'title'      => $product->name . " - {$item_count} шт.",
+                        'price'      => $product->price * $item_count,
                         'photo_url'  => $product->picture,
                         'expiration' => 60
                     ));
