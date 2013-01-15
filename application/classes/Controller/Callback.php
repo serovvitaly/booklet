@@ -4,6 +4,7 @@ class Controller_Callback extends Controller {
     
     protected $out = NULL;
     
+    
     public function before()
     {
         $this->response->headers('Content-Type', 'text/json');
@@ -32,6 +33,8 @@ class Controller_Callback extends Controller {
       
         $notification_type = $this->request->post('notification_type');
         
+        $order_id  = $this->request->post('order_id');
+        
         $_out = NULL;
         
         
@@ -49,9 +52,12 @@ class Controller_Callback extends Controller {
                 $product = $item_articul ? ORM::factory('Product')->where('barcode', '=', $item_articul)->find() : NULL;
                 
                 if ($product AND $product->id > 0) {
+                    
+                    $price = ceil( $product->price * $item_count / VK_RATE );
+                    
                     $_out = array('response' => array(
                         'title'      => ( $item_count > 1 ? "{$item_count} шт. - " : '' ) . $product->name,
-                        'price'      => $product->price * $item_count,
+                        'price'      => $price,
                         'photo_url'  => $product->picture,
                         'expiration' => 60
                     ));
@@ -69,6 +75,11 @@ class Controller_Callback extends Controller {
             // изменение статуса заказа
             case 'order_status_change_test':
                 //
+                
+                $_out = array('response' => array(
+                     'order_id' => $order_id
+                 ));
+                
                 break;
         }
        

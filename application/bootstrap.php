@@ -164,3 +164,6 @@ else {
 $user_id = $user ? Auth::instance()->get_user() : 0;
 
 define('USER_ID', $user_id);
+
+// Ставка Вконтакте, 1 голос = 7 рублей
+define('VK_RATE', 7);
