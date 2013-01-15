@@ -42,9 +42,9 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i id="basket-icon" class="icon-shopping-cart" style="padding-right: 5px;"></i> <span id="basket-content"><?= $basket['content'] ?></span> <b id="basket-menu"<?= $basket['empty'] ? ' style="display:none"' : '' ?> class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="/help/delivery/">Перейти в корзину</a></li>
-          <li><a href="/help/rules/">Оформить заказ</a></li>
+          <li><a href="/help/rules/">Оформить доставку</a></li>
           <li class="divider"></li>
-          <li><a href="/help/rules/">Очистить корзину</a></li>
+          <li><a href="/help/rules/">История покупок</a></li>
         </ul>
       </li>
     </ul>
