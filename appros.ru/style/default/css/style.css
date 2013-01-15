@@ -219,12 +219,17 @@ body{
 
 
 .pagination-fixed-bottom{
-    background: none repeat scroll 0 0 #FFFFFF;
     bottom: 0;
     margin: 0;
     width: 100%;
     position: fixed;
     bottom:0;
+    height: 36px;
+}
+.pagination-fixed-bottom ul{
+    background: #FFFFFF;
+    box-shadow: 0 0 2px #E4E4E4;
+    padding: 2px 60px;
 }
 
 
