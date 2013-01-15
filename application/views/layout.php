@@ -13,12 +13,75 @@
   
   <script src="http://vk.com/js/api/xd_connection.js?2" type="text/javascript"></script>
   <script type="text/javascript">
-  $(document).ready(function(){
-      VK.init(function() {
-         // API initialization succeeded
-         // Your code here
-      });    
-  }); 
+    $(document).ready(function(){
+        VK.init(function() {
+            // API initialization succeeded
+            // Your code here
+        });
+
+        /**
+        * Событие происходит, когда пользователь отменяет покупку.
+        */
+        VK.addCallback('onOrderCancel', function(){
+            //
+        });
+
+        /**
+        * Событие происходит, когда покупка закончилась успешно.
+        */
+        VK.addCallback('onOrderSuccess', function(orderId){
+            addToBasket(orderId);
+        });
+
+        /**
+        * Событие происходит, когда покупка закончилась неуспешно.
+        */
+        VK.addCallback('onOrderFail', function(errorCode){
+            //
+        });
+    }); 
+  
+  
+    /**
+    * Добавляет покупку в корзину
+    */
+    function addToBasket(orderId)
+    {
+        if (orderId == '' || !orderId || orderId <= 0) return false;
+        
+        // ставим гифку прелодера в корзину
+        $('#basket-icon').attr('class', 'icon-shopping-cart-loader');
+        
+        ajaxController({
+            controller: 'basket',
+            action: 'get',
+            data: {
+                orderId: orderId,
+            },
+            success: function(data){            
+                $('#basket-content').html('товаров - ' + data.result.total_count + ', на ' + data.result.summa + ' руб.');
+                $('#basket-menu').css('display', 'inline-block');
+                
+                // сбрасываем все поля ввода количества товара
+                $('.product-item .p-count input').val(1);
+                
+                // убираем гифку прелодера из корзины
+                $('#basket-icon').attr('class', 'icon-shopping-cart');
+            }
+        });
+    }
+    
+    
+    /**
+    * Вызывает диалог оплаты товара
+    */
+    function orderWindow(articul){
+        VK.callMethod("showOrderBox", {
+            type: 'item',
+            item: 'ar-' + articul + '_ct-' + $('#product-' + articul + ' .p-count input').val()
+        });
+    }
+  
   </script>
   
 </head>

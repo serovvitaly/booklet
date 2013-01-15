@@ -31,6 +31,18 @@ class Controller_Basket extends Controller {
     
     
     /**
+    * Возвращает сведение о текущем содержимом корзины
+    * 
+    */
+    public function action_get()
+    {        
+        $orderId = Arr::get($_POST, 'orderId');
+        
+        $this->result = $this->user->get_basket();        
+    }
+    
+    
+    /**
     * Добавляет заказ в корзину
     * 
     */
