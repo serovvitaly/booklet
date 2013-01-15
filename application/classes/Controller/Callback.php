@@ -37,7 +37,6 @@ class Controller_Callback extends Controller {
         
         $_out = NULL;
         
-        
         switch ($notification_type) {
             
             //получение информации о товаре
