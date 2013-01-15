@@ -8,8 +8,7 @@ body{
 }
 .container-fluid.main{
     width: 700px;
-    height: 840px;
-    overflow-x: auto;
+    overflow: hidden;
     padding: 0;
     padding-top: 1px;
     background: #F7F7F7;
@@ -17,9 +16,9 @@ body{
 
 .product-item{
     border: 1px solid #E7EAED;
-    border-bottom-width: 5px;
+    border-top-color: #D9E0E7;
     border-bottom-color: #D9E0E7;
-    margin: 0 -1px -1px 0;
+    margin: 0 -1px 2px 0;
     width: 234px;
     float: left;
     background: #FFFFFF;
@@ -42,13 +41,46 @@ body{
     text-align: center;
     padding: 0 10px;
     margin-top: 10px;
+    overflow: hidden;
 }
 
-.product-item .product-basket-box{
+
+.product-item .product-price-box{
     margin: 5px 0;
     padding: 5px 0;
     border-top: 1px dotted #E7EAED;
     border-bottom: 1px dotted #E7EAED;
+}
+.product-item .product-price-box table{
+    width: 100%;
+}
+.product-item .product-price-box table td{
+    width: 50%;
+    font-size: 20px;
+    font-style: italic;
+    font-family: georgia;
+    padding: 0 0 5px;
+}
+.product-item .product-price-box table td sup{
+    font-size: 11px;
+}
+.product-item .product-price-box table .p-left{
+    width: 53%;
+    text-align: right;
+    padding-right: 8px;
+}
+.product-item .product-price-box table .p-right{
+    width: 47%;
+    text-align: left;
+    padding-left: 10px;
+    border-left: 1px solid #D4DEE9;
+    color: #597DA4;
+}
+
+
+.product-item .product-basket-box{
+    margin: 5px 0;
+    padding: 5px 0;
 }
 .product-item .product-basket-box table{
     width: 100%;
@@ -56,20 +88,12 @@ body{
 .product-item .product-basket-box td{
     
 }
-.product-item .product-basket-box .p-price{
-    font-size: 20px;
-    padding-right: 10px;
+.product-item .product-basket-box .p-left{
+    width: 53%;
+    padding-right: 6px;
     text-align: right;
-    font-style: italic;
-    font-family: georgia;
 }
-.product-item .product-basket-box .p-price sup{
-    font-size: 11px;
-}
-.product-item .product-basket-box .p-count{
-    width: 18px;
-}
-.product-item .product-basket-box .p-count input{
+.product-item .product-basket-box .p-left input{
     padding: 1px;
     font-size: 11px;
     height: 16px;
@@ -77,9 +101,31 @@ body{
     margin: 0;
     text-align: center;
 }
-.product-item .product-basket-box .p-action{
-    padding-left: 10px;
-    width: 50px;
+.product-item .product-basket-box .p-right{
+    width: 47%;
+    padding-left: 0px;
+}
+.product-item .product-basket-box .p-right a{
+    font-size: 11px;
+    color: #005580;
+    padding: 3px 5px 3px 7px;
+}
+.product-item .product-basket-box .p-right a:hover{
+    font-size: 11px;
+    background: #2B587A;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.product-item .product-basket-box .p-right a i{
+    opacity: 0.25;
+    filter: alpha(opacity=25);
+    margin: 0 0 0 1px;
+    background-image: url(/vendor/bootstrap/img/glyphicons-halflings-002d44.png);
+}
+.product-item .product-basket-box .p-right a:hover i{
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+    background-image: url(/vendor/bootstrap/img/glyphicons-halflings-white.png);
 }
 
 .product-item .blocker{
@@ -118,7 +164,7 @@ body{
     background: #F0F0F0;
 }
 .product-link-box table td:hover{
-    background: #4e7199;
+    background: #7A9EB9;
 }
 .product-link-box table td:hover a{
     color: #FFFFFF;
@@ -176,7 +222,26 @@ body{
     background: none repeat scroll 0 0 #FFFFFF;
     bottom: 0;
     margin: 0;
-    width: 683px;
+    width: 100%;
     position: fixed;
     bottom:0;
+}
+
+
+
+.button-buy{
+    display: block;
+    width: 77px;
+    height: 30px;
+    text-align: center;
+    color: #FFFFFF;
+    line-height: 29px;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
+}
+.button-buy:hover{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.button-buy.blue{
+    background: url(../img/button-buy-blue.png) no-repeat;
 }
