@@ -75,7 +75,7 @@ function addToBasket(barcode)
 function orderWindow(articul){
     VK.callMethod("showOrderBox", {
         type: 'item',
-        item: 'ar-' + articul + '_ct-' + $('#product-' + articul + ' .p-count input').val(1)
+        item: 'ar-' + articul + '_ct-' + $('#product-' + articul + ' .p-count input').val()
     });
 }
 </script>

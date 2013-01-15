@@ -27,12 +27,13 @@ class Controller_Callback extends Controller {
     * 
     */
     public function action_vk()
-    {     
+    {   
+        oLog::add($_POST, 'VK_PAYMENT_REQUEST');
+      
         $notification_type = $this->request->post('notification_type');
         
         $_out = NULL;
         
-        $notification_type = 'get_item_test';
         
         switch ($notification_type) {
             
@@ -40,11 +41,7 @@ class Controller_Callback extends Controller {
             case 'get_item_test':
                 $item = $this->request->post('item');
                 
-                $item = 'ar-235345235_ct-4';
-                
                 preg_match('/ar\-([0-9]+)_ct\-([0-9]+)/', $item, $item_mix);
-                
-                var_dump($item_mix);
                 
                 $item_articul = (isset($item_mix[1]) AND $item_mix[1] > 0) ? $item_mix[1] : NULL;
                 $item_count   = (isset($item_mix[2]) AND $item_mix[2] > 0) ? $item_mix[2] : 1;
@@ -53,7 +50,7 @@ class Controller_Callback extends Controller {
                 
                 if ($product AND $product->id > 0) {
                     $_out = array('response' => array(
-                        'title'      => $product->name . " - {$item_count} шт.",
+                        'title'      => ( $item_count > 1 ? "{$item_count} шт. - " : '' ) . $product->name,
                         'price'      => $product->price * $item_count,
                         'photo_url'  => $product->picture,
                         'expiration' => 60
