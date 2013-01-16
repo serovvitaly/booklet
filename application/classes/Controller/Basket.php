@@ -48,5 +48,25 @@ class Controller_Basket extends Controller {
         }    
                 
     }
+    
+    
+    public function action_search()
+    {
+        $query = $this->request->post('query');
+        
+        $sql = DB::query(Database::SELECT, "SELECT `name` FROM bk_products WHERE `name` LIKE ('%{$query}%') LIMIT 9");
+        
+        $result = $sql->execute();
+        
+        $out = array();
+        
+        if ($result->count() > 0) {
+            foreach ($result->as_array() AS $res) {
+                $out[] = $res['name']; 
+            }
+        }
+        
+        $this->result = $out;
+    }
 
 } // End

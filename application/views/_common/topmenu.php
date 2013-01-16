@@ -30,6 +30,7 @@
       </li>
       <li class="divider-vertical"></li>     
     </ul>
+    <input class="search-element" type="text" data-provide="typeahead" placeholder="поиск...">
     <ul class="nav pull-right">
       <li><a href="#">«</a></li>
       <li class="dropdown">

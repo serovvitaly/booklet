@@ -57,6 +57,21 @@
         updateBasket();
         renderPage(1);
         
+        $('.search-element').typeahead({
+            source: function(query, process){
+                ajaxController({
+                    controller: 'basket',
+                    action: 'search',
+                    data: {query:query},
+                    timeout: 1000,
+                    success: function(data){
+                        process(data.result);
+                    }
+                });
+            }
+        });
+        
+        
     }); 
   
   

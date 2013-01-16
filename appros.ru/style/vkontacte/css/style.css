@@ -278,3 +278,11 @@ body{
     line-height: 9px;
     display: inline-block;
 }
+
+
+.topmenu .search-element{
+    width: 200px;
+    margin: 0;
+    padding: 2px 6px;
+    margin-top: 2px;
+}
