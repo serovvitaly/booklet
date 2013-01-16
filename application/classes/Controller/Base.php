@@ -2,7 +2,7 @@
 
 class Controller_Base extends Controller_Template {
 
-    public $template = 'layout';
+    public $template = '_layout/default';
     
     public function before()
     {        
