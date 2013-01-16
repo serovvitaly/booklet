@@ -1,7 +1,7 @@
 
 
-var alertWindow = function(params){
-    alert(params.message);
+var alertFailure = function(params){
+    //
 }
 
 var modalWindow = function(params){
@@ -9,54 +9,37 @@ var modalWindow = function(params){
 }
 
 var ajaxer = function(params){
-    $.ajax({
-        url: params.url,
-        data: params.data,
+    
+    var options = $.extend({
         type: 'POST',
         dataType: 'json',
         success: function(data){
             if (!data.success) {
-                //if (!data.handler) data.handler = 'alertWindow';
-                //var callback = [];
-                //callback.push(data.handler);
-                //callback[0](data);
-                
                 if (params.failure) {
                     params.failure(data);
                 } else {
-                    alertWindow(data);
-                }
-                
-                //data.handler(data);
-                //return;
-                //callbacks.add(['alertWindow']);
-                //console.log(callbacks);
-                //callbacks.fire(data);
-                //callbacks.remove(data.handler);
-                
+                    alertFailure(data);
+                }                
             }
             params.success(data);
         }
-    });    
+    }, params);
+    
+    $.ajax(options);   
 }
 
 var ajaxController = function(params){
+    
     if (!params.controller) params.controller = 'ajax';
-    if (!params.action) params.action = 'default';
-    if (!params.data) params.data = {};
+    if (!params.action)     params.action     = 'default';
     
-    ajaxer({
-        url: '/' + params.controller + '/' + params.action,
-        data: params.data,
-        failure: function(data){
-            if (params.failure) params.failure(data);
-            else return false;
-        },
-        success: function(data){
-            if (params.success) params.success(data);
-        }
-    });
+    var options = $.extend({
+        url : '/' + params.controller + '/' + params.action,
+        data: {},
+        timeout: 30000
+    }, params);
     
+    ajaxer(options);    
 }
 
 
