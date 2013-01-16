@@ -17,7 +17,7 @@ class Controller_Basket extends Controller {
             return;
         }
         
-        $this->user = ORM::factory('User', USER_ID);
+        $this->user = ORM::factory('User')->where('uid', '=', USER_ID)->find();
     }
     
     
@@ -35,10 +35,17 @@ class Controller_Basket extends Controller {
     * 
     */
     public function action_get()
-    {        
-        $orderId = Arr::get($_POST, 'orderId');
-        
-        $this->result = $this->user->get_basket();        
+    {   
+        if ($this->user AND $this->user->id > 0) {
+            $this->success = true;
+            $this->result  = $this->user->get_basket();
+        }
+        else {
+            $this->result = array(
+                'message' => 'Пользователь не найден',
+            );
+        }    
+                
     }
 
 } // End
