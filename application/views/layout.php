@@ -15,7 +15,13 @@
   <script type="text/javascript">
     $(document).ready(function(){
         
-        updateBasket();
+        $.nano = function(template, data) {
+            return template.replace(/\{([\w\.]*)\}/g, function (str, key) {
+                var keys = key.split("."), value = data[keys.shift()];
+                $.each(keys, function () { value = value[this]; });
+                return (value === null || value === undefined) ? "" : value;
+            });
+        };
         
         VK.init(function() {
             //apiId: 3355850
@@ -45,6 +51,12 @@
             //
             clearItems();
         });
+        
+        
+        // Инициализация
+        updateBasket();
+        renderPage(1);
+        
     }); 
   
   
@@ -111,6 +123,35 @@
         });
     }
   
+  
+    /**
+    * Отображает страницу с товарами
+    */
+    function renderPage(page){
+        ajaxController({
+            controller: 'ajax',
+            action: 'page_get',
+            data: {
+                page: page > 1 ? page : 1
+            },
+            timeout: 10000,
+            success: function(data){
+            
+                this.content_box = $('#products-page-content');
+                
+                if (data.result && data.result.items && data.result.items.length > 0) {
+                    this.content_box.html('');
+                    for (i=0; i<=9; i++) {
+                        this.item_template = $('#template-product-item').html();
+                        this.item_content = $.nano(this.item_template, data.result.items[i]);
+                        this.content_box.append(this.item_content);
+                    }
+                    
+                }                
+            }
+        });
+    }
+  
   </script>
   
 </head>
@@ -118,6 +159,43 @@
   <?= View::factory('_common/topmenu', array('brends' => $brends)) ?>
   <div class="container-fluid main">
     <?= $content ?>
+  </div>
+  
+  <div style="display: none;">
+    <div id="template-product-item">
+    
+      <div id="product-{barcode}" class="span2 product-item"><div class="product-item-wrapper">
+          <div style="text-align: center;">
+            <a href="#">
+              <img class="product-image-mini" data-src="holder.js/120x120" alt="120x120" style="width: 120px; height: 120px;" src="{picture}">
+            </a>
+          </div>
+          <div class="product-title-box"><a href="#">{name}</a></div>
+          <div class="product-price-box">
+            <table><tr>
+              <td class="p-left">{price} <sup>руб.</sup></td>
+              <td class="p-right">{vendor_price} <sup>гол.</sup></td>
+            </tr></table>
+          </div>
+          <div class="product-basket-box">
+            <table><tr>
+              <td class="p-left"><input class="p-count" type="text" value="1"></td>
+              <td class="p-right"><a href="#" onclick="orderWindow('{barcode}'); return false;">КУПИТЬ <i class="icon-shopping-cart"></i></a></td>
+            </tr></table>
+          </div>
+          <div class="product-link-box">
+            <table><tr>
+              <td><a href="#">подробнее</a></td>
+              <td><a href="#">сравнить</a></td>
+              <td><a href="#">поделиться</a></td>
+            </tr></table>
+          </div>
+          <div>
+            <img src="/style/default/img/hearts.png" alt="">
+          </div>
+      </div></div>
+      
+    </div>
   </div>
   
 </body>

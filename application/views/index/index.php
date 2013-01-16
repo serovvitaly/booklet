@@ -1,5 +1,6 @@
-<div class="row" style="margin: 0;">
+<div id="products-page-content" class="row" style="margin: 0;">
 <?
+$products = array();
 if (isset($products) AND count($products) > 0) {
     $counter = 1;
     foreach ($products AS $product) {
@@ -51,10 +52,10 @@ if (isset($products) AND count($products) > 0) {
   <ul>
     <li class="disabled"><a href="#">«</a></li>
     <li class="active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
+    <li><a onclick="renderPage(2); return false;" href="#">2</a></li>
+    <li><a onclick="renderPage(3); return false;" href="#">3</a></li>
+    <li><a onclick="renderPage(4); return false;" href="#">4</a></li>
+    <li><a onclick="renderPage(5); return false;" href="#">5</a></li>
     <li><a href="#">»</a></li>
   </ul>
 </div>
