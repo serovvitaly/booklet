@@ -1,0 +1,18 @@
+body{
+    padding: 0;
+    line-height: 15px;
+}
+a{
+    color: #2B587A;
+}
+.navbar-inner {
+    padding-left: 5px;
+    padding-right: 15px;
+}
+
+.dropdown-menu {
+    border-radius: 1px;
+}
+.dropdown-menu .divider {
+    margin: 5px 1px;
+}
