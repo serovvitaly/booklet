@@ -14,6 +14,9 @@
   <script src="http://vk.com/js/api/xd_connection.js?2" type="text/javascript"></script>
   <script type="text/javascript">
     $(document).ready(function(){
+        
+        updateBasket();
+        
         VK.init(function() {
             //apiId: 3355850
             //
@@ -52,6 +55,39 @@
         // сбрасываем все поля ввода количества товара
         $('.product-item input.p-count').val(1);
     }
+    
+    
+    /**
+    * Обновляет содержимое корзины
+    */
+    function updateBasket(){
+        
+        // ставим гифку прелодера в корзину
+        $('#basket-icon').attr('class', 'icon-shopping-cart-loader');
+        
+        ajaxController({
+            controller: 'basket',
+            action: 'get',
+            data: {},
+            timeout: 100,
+            success: function(data){
+            
+                this.bcontent = 'Корзина пуста';
+                
+                if (data.result.total_count && data.result.total_count > 0) {
+                    this.bcontent = 'товаров - ' + data.result.total_count + ', на ' + data.result.summa + ' руб.';
+                    $('#basket-menu').css('display', 'inline-block');
+                } else {
+                    $('#basket-menu').css('display', 'none');
+                }
+                       
+                $('#basket-content').html(this.bcontent);
+                
+                // убираем гифку прелодера из корзины
+                $('#basket-icon').attr('class', 'icon-shopping-cart');
+            }
+        });
+    }
   
   
     /**
@@ -61,23 +97,7 @@
         
         if (orderId == '' || !orderId || orderId <= 0) return false;
         
-        // ставим гифку прелодера в корзину
-        $('#basket-icon').attr('class', 'icon-shopping-cart-loader');
-        
-        ajaxController({
-            controller: 'basket',
-            action: 'get',
-            data: {
-                orderId: orderId,
-            },
-            success: function(data){            
-                $('#basket-content').html('товаров - ' + data.result.total_count + ', на ' + data.result.summa + ' руб.');
-                $('#basket-menu').css('display', 'inline-block');
-                
-                // убираем гифку прелодера из корзины
-                $('#basket-icon').attr('class', 'icon-shopping-cart');
-            }
-        });
+        updateBasket();
     }
     
     
