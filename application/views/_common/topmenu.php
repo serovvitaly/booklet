@@ -39,7 +39,7 @@
     </ul>
     <ul class="nav pull-right">
       <li class="dropdown active">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i id="basket-icon" class="icon-shopping-cart" style="padding-right: 5px;"></i> <span id="basket-content">Корзина пуста</span> <b id="basket-menu" style="display:none" class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i id="basket-icon" class="icon-shopping-cart" style="margin: 0 10px 0 0"></i> <span id="basket-content">Корзина пуста</span> <b id="basket-menu" style="display:none" class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="/help/delivery/">Перейти в корзину</a></li>
           <li><a href="/help/rules/">Оформить доставку</a></li>
