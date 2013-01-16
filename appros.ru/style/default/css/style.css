@@ -255,3 +255,8 @@ body{
 .button-buy.blue{
     background: url(../img/button-buy-blue.png) no-repeat;
 }
+
+
+.topmenu .navbar-inner{
+    /*background: url(../img/background-topmenu-black.gif) repeat-x left top;*/
+}
