@@ -1,5 +1,10 @@
 <!-- <a class="logo" href="/" title="На стартовую"><img src="/style/default/img/logo.png"></a> -->
 
+<div>
+  <a href="/help/delivery/">Оплата и доставка</a>
+  <a href="/help/rules/">Правила</a>
+</div>
+
 <div class="navbar topmenu" style="margin: 0; width: 700px;">
   <div class="navbar-inner">
     <a class="brand" href="#">;)</a>
@@ -19,24 +24,8 @@
           }
           ?>
         </ul>
-      </li> 
-      <? /*     
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ФИЛЬТР <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="#"><input type="checkbox"> женские</a></li>
-          <li><a href="#"><input type="checkbox"> мужские</a></li>
-          <li><a href="#"><input type="checkbox"> унисекс</a></li>
-        </ul>
-      </li> */ ?>
-      <li class="divider-vertical"></li>      
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Помощь <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="/help/delivery/">Оплата и доставка</a></li>
-          <li><a href="/help/rules/">Правила</a></li>
-        </ul>
-      </li>      
+      </li>
+      <li class="divider-vertical"></li>     
     </ul>
     <ul class="nav pull-right">
       <li class="dropdown active">
