@@ -260,3 +260,18 @@ body{
 .topmenu .navbar-inner{
     /*background: url(../img/background-topmenu-black.gif) repeat-x left top;*/
 }
+
+.topsubmenu{
+    margin-bottom: 6px;
+    text-align: right;
+    margin-top: -10px;
+}
+.topsubmenu a{
+    padding: 0 9px;
+}
+.topsubmenu span{
+    font-size: 15px;
+    color: #B3CADB;
+    line-height: 9px;
+    display: inline-block;
+}
