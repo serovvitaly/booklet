@@ -57,6 +57,8 @@
         updateBasket();
         renderPage(1);
         
+        $('#brands-list-carousel').carousel();
+        
         $('.search-element').typeahead({
             source: function(query, process){
                 ajaxController({
@@ -70,7 +72,6 @@
                 });
             }
         });
-        
         
     }); 
   

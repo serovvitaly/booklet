@@ -8,7 +8,30 @@ class Controller_Base extends Controller_Template {
     {        
         parent::before();
         
-        $this->template->brends = ORM::factory('Product')->group_by('vendor')->find_all();
+        $brends = ORM::factory('Product')->group_by('vendor')->find_all();
+        
+        $compiled = array();
+        if (count($brends) > 0) {
+            
+            foreach ($brends AS $brend) {
+                $liter = strtoupper( substr( ltrim($brend->vendor) , 0, 1) );
+                
+                if (!empty($liter)) {
+                    if (isset($compiled[$liter])) {
+                        $compiled[$liter]['count']++;
+                        $compiled[$liter]['items'][] = $brend->vendor;
+                    }
+                    else {
+                        $compiled[$liter] = array(
+                            'count' => 1,
+                            'items' => array($brend->vendor)
+                        );
+                    }     
+                }
+            }            
+        }
+        
+        $this->template->brends = $compiled;
     }
     
     public function after()

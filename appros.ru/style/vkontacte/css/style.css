@@ -281,8 +281,99 @@ body{
 
 
 .topmenu .search-element{
-    width: 200px;
-    margin: 0;
+    width: 350px;
     padding: 2px 6px;
-    margin-top: 2px;
 }
+
+.topmenu .search-box{
+    padding: 0 8px;
+    margin-bottom: 0;
+}
+.topmenu .search-box form{
+    padding: 0;
+    margin: 0;
+}
+.topmenu .search-box .search-element{
+    margin: 2px 0;
+}
+.topmenu .search-box button{
+    padding: 2px 5px 2px 6px;
+    margin-top: 2px !important;
+}
+
+
+/* -- brands-list-collection -- */
+.brands-list-collection{
+    margin: 0 4px;
+    width: 500px;
+}
+.brands-list-collection form{
+    margin: 0;
+    padding: 0;
+}
+.brands-list-collection table{
+    
+}
+.brands-list-collection table td{
+    
+}
+.brands-list-collection table .u-left{
+    
+}
+.brands-list-collection table .u-left .liter-item{
+    float: left;
+    width: 34px;
+    padding: 0px 6px;
+    margin: 1px 0 0 1px;
+    cursor: pointer;
+    background: #F4F7FA;
+    line-height: 22px;
+    text-align: center;
+}
+.brands-list-collection table .u-left .liter-item:hover{
+    background: #2B587A;
+    color: #FFFFFF;
+}
+.brands-list-collection table .u-right{
+    
+}
+.brands-list-collection table .u-right .pager{
+    margin: 0;
+    height: 30px;
+}
+.brands-list-collection table .u-right .pager .previous{
+    float: left;
+}
+.brands-list-collection table .u-right .pager .next{
+    float: right;
+}
+
+#brands-list-carousel{
+    width: 340px;
+    height: 164px;
+    margin-bottom: 0;
+}
+#brands-list-carousel .carousel-inner{
+    width: 340px;
+    height: 164px;
+}
+#brands-list-carousel .carousel-inner .item{
+    /*width: 340px;
+    height: 300px;*/
+}
+#brands-list-carousel .carousel-inner .item .vendor-item{
+    float: left;
+    width: 42%;
+    padding: 6px 10px;
+}
+
+#brands-list-carousel .carousel-control{
+    
+}
+#brands-list-carousel .carousel-control.left{
+    
+}
+#brands-list-carousel .carousel-control.right{
+    
+}
+/* -- brands-list-collection -- */
