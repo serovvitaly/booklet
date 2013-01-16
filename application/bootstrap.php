@@ -140,72 +140,64 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 * Устанавливаем UID пользователя соцсети, в данном случае - для Вконтакте
 */
 
-define('UID', isset($_REQUEST['viewer_id']) ? $_REQUEST['viewer_id'] : NULL);
+define('UID', (isset($_REQUEST['viewer_id']) AND $_REQUEST['viewer_id'] > 0) ? $_REQUEST['viewer_id'] : NULL);
 
-if ( !Auth::instance()->logged_in() ) {
+/**
+* Создает сессию для заданного UID
+*/
+function create_new_session_for_uid($uid)
+{
+    $user_id = Auth::instance()->login($uid, $uid);
     
-    if (UID > 0) {
-        $user_id = Auth::instance()->login(UID, UID);
+    if (!$user_id) {
+        $user = ORM::factory('User')->values(array(
+            'uid'      => $uid,
+            'password' => Auth::instance()->hash($uid),
+            'vendor'   => VENDOR_VK
+        ));
         
-        if (!$user_id) {
-            ORM::factory('User')->values(array(
-                'uid'      => UID,
-                'password' => Auth::instance()->hash(UID),
-                'vendor'   => VENDOR_VK
-            ))->save();
-            
-            $user_id = Auth::instance()->login(UID, UID);
-        }    
-    } else {
-        $user_id = false;
+        $user->save();
+        
+        $user->add('roles', 1);
+        
+        $user_id = Auth::instance()->login($uid, $uid);
     }
-        
-} else {
-    $user_id = Auth::instance()->get_user()->id;
+    
+    return $user_id;
 }
+
+
+// если имеется сессия
+$user_logged_in = Auth::instance()->logged_in() ? Auth::instance()->get_user() : NULL;
+
+$user_id = NULL;
+
+// если имеется UID и есть сессия для текущего пользователя 
+if (UID AND $user_logged_in) {
+    
+    // проверяем, совпадает ли пришедший UID и uid сессии
+    if (UID != $user_logged_in->uid) {
+        // перезапускаем сессию
+        Auth::instance()->logout();
+        
+        $user_id = create_new_session_for_uid(UID);
+    }
+    
+} elseif (UID) {
+    
+    $user_id = create_new_session_for_uid(UID);
+    
+} elseif ($user_logged_in) {
+    
+    $user_id = $user_logged_in->id;
+    
+}
+
+
+define('USER_ID', $user_id);
 
 
 define('VK_UID', UID);
-
-
-if ($user_id > 0) {
-    define('USER_ID', $user_id);
-    $_USER_INSTANCE = ORM::factory('User', $user_id);
-} else {
-    define('USER_ID', NULL);
-    $_USER_INSTANCE = NULL;
-    
-}
-define('USER_INSTANCE', $_USER_INSTANCE);
-
-
-/**
-* Если текущий UID не совпадает с UID пользователя сессии
-*/
-if (UID > 0 AND $_USER_INSTANCE AND UID != $_USER_INSTANCE->uid) {
-    Auth::instance()->logout();
-    $user_id = Auth::instance()->login(UID, UID);
-    
-    if (!$user_id) {
-        ORM::factory('User')->values(array(
-            'uid'      => UID,
-            'password' => Auth::instance()->hash(UID),
-            'vendor'   => VENDOR_VK
-        ))->save();
-        
-        $user_id = Auth::instance()->login(UID, UID);
-    } 
-    
-    if ($user_id > 0) {
-        define('USER_ID', $user_id);
-        $_USER_INSTANCE = ORM::factory('User', $user_id);
-    } else {
-        define('USER_ID', NULL);
-        $_USER_INSTANCE = NULL;
-        
-    }
-    define('USER_INSTANCE', $_USER_INSTANCE);
-}
 
 
 // Ставка Вконтакте, 1 голос = 7 рублей
