@@ -235,6 +235,9 @@ body{
     background: #FFFFFF;
     box-shadow: 0 0 2px #E4E4E4;
     padding: 2px 60px;
+    -webkit-border-radius: 20px;
+       -moz-border-radius: 20px;
+            border-radius: 20px;
 }
 
 
