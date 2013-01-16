@@ -11,13 +11,13 @@ class Controller_Basket extends Controller {
     protected $user    = NULL;
     
     public function before()
-    {
+    {        
         if (USER_ID <= 0) {
             $this->out['error'] = 'Access denied';
             return;
         }
         
-        $this->user = ORM::factory('User')->where('uid', '=', USER_ID)->find();
+        $this->user = ORM::factory('User', USER_ID);
     }
     
     
@@ -35,7 +35,8 @@ class Controller_Basket extends Controller {
     * 
     */
     public function action_get()
-    {   
+    {
+        //echo 'USER_ID=' . USER_ID;
         if ($this->user AND $this->user->id > 0) {
             $this->success = true;
             $this->result  = $this->user->get_basket();

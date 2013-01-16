@@ -96,7 +96,6 @@ class Controller_Callback extends Controller {
                         
                         $order_result = $order->values(array(
                             'user_id'      => $user_id,
-                            'uid'          => VK_UID,
                             'vendor'       => VENDOR_VK,
                             'vendor_price' => $this->request->post('item_price'),
                             'vendor_rate'  => VK_RATE,

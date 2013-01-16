@@ -140,12 +140,76 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 * Устанавливаем UID пользователя соцсети, в данном случае - для Вконтакте
 */
 
+define('UID', isset($_REQUEST['viewer_id']) ? $_REQUEST['viewer_id'] : NULL);
+
+if ( !Auth::instance()->logged_in() ) {
+    
+    if (UID > 0) {
+        $user_id = Auth::instance()->login(UID, UID);
+        
+        if (!$user_id) {
+            ORM::factory('User')->values(array(
+                'uid'      => UID,
+                'password' => Auth::instance()->hash(UID),
+                'vendor'   => VENDOR_VK
+            ))->save();
+            
+            $user_id = Auth::instance()->login(UID, UID);
+        }    
+    } else {
+        $user_id = false;
+    }
+        
+} else {
+    $user_id = Auth::instance()->get_user()->id;
+}
 
 
+define('VK_UID', UID);
 
-define('VK_UID', isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : NULL);
 
-define('USER_ID', VK_UID);
+if ($user_id > 0) {
+    define('USER_ID', $user_id);
+    $_USER_INSTANCE = ORM::factory('User', $user_id);
+} else {
+    define('USER_ID', NULL);
+    $_USER_INSTANCE = NULL;
+    
+}
+define('USER_INSTANCE', $_USER_INSTANCE);
+
+
+/**
+* Если текущий UID не совпадает с UID пользователя сессии
+*/
+if (UID > 0 AND $_USER_INSTANCE AND UID != $_USER_INSTANCE->uid) {
+    Auth::instance()->logout();
+    $user_id = Auth::instance()->login(UID, UID);
+    
+    if (!$user_id) {
+        ORM::factory('User')->values(array(
+            'uid'      => UID,
+            'password' => Auth::instance()->hash(UID),
+            'vendor'   => VENDOR_VK
+        ))->save();
+        
+        $user_id = Auth::instance()->login(UID, UID);
+    } 
+    
+    if ($user_id > 0) {
+        define('USER_ID', $user_id);
+        $_USER_INSTANCE = ORM::factory('User', $user_id);
+    } else {
+        define('USER_ID', NULL);
+        $_USER_INSTANCE = NULL;
+        
+    }
+    define('USER_INSTANCE', $_USER_INSTANCE);
+}
+
 
 // Ставка Вконтакте, 1 голос = 7 рублей
 define('VK_RATE', 7);
+
+
+//Auth::instance()->logout();

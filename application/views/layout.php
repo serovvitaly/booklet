@@ -69,7 +69,7 @@
             controller: 'basket',
             action: 'get',
             data: {},
-            timeout: 100,
+            timeout: 10000,
             success: function(data){
             
                 this.bcontent = 'Корзина пуста';
