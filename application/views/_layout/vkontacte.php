@@ -22,9 +22,9 @@
                 return (value === null || value === undefined) ? "" : value;
             });
         };
-        
+       
         VK.init(function() {
-            //apiId: 3355850
+            apiId: 3355850
             //
         });
 
@@ -57,7 +57,18 @@
         updateBasket();
         renderPage(1);
         
-        $('#brands-list-carousel').carousel();
+        $('#brands-list-carousel')
+            .carousel({
+                interval: 2000
+            })
+            .bind('slid', function(){
+                console.log('slid');
+            });
+            
+        $('.brands-list-collection .liter-item').on('click', function(){
+            console.log('gogo');
+            brendSlideByLiter(2);
+        });
         
         $('.search-element').typeahead({
             source: function(query, process){
@@ -75,6 +86,11 @@
         
     }); 
   
+  
+    function brendSlideByLiter(liter){
+        console.log(liter);
+        $('#brands-list-carousel').carousel(20);
+    }
   
     /**
     * Сбрасывает товары на дефолтовые установки
