@@ -58,9 +58,7 @@
         renderPage(1);
         
         $('#brands-list-carousel')
-            .carousel({
-                interval: 2000
-            })
+            .carousel()
             .bind('slid', function(){
                 console.log('slid');
             });
@@ -155,30 +153,73 @@
         });
     }
   
+    
+    var current_page = 1;
   
     /**
     * Отображает страницу с товарами
     */
     function renderPage(page){
+        
+        if (page == 'next' || page == '>') {
+            current_page++;
+        } else if (page == 'prev' || page == '<') {
+            current_page--;
+        } else {
+            current_page = page;
+        }
+        
+        if (current_page < 1) current_page = 1;
+        
+        var content_box = $('#products-page-content');
+        
         ajaxController({
             controller: 'ajax',
             action: 'page_get',
             data: {
-                page: page > 1 ? page : 1
+                page: current_page
             },
             timeout: 10000,
             success: function(data){
-            
-                this.content_box = $('#products-page-content');
                 
                 if (data.result && data.result.items && data.result.items.length > 0) {
-                    this.content_box.html('');
-                    for (i=0; i<=9; i++) {
-                        this.item_template = $('#template-product-item').html();
-                        this.item_content = $.nano(this.item_template, data.result.items[i]);
-                        this.content_box.append(this.item_content);
-                    }
                     
+                    this.item_template = $('#template-product-item').html();
+                    
+                    if (current_page == 1) {
+                        content_box.html('');
+                        for (i=0; i<=8; i++) {
+                            this.item_content  = $.nano(this.item_template, data.result.items[i]);
+                            content_box.append(this.item_content);
+                        }
+                    } else {
+                        var newPage = $('<div class="row"></div>');
+                        newPage.css({
+                            position: 'absolute',
+                            right: 0,
+                            top: '66px',
+                            width: content_box.width(),
+                            marginRight: '-'+content_box.width()+'px'
+                        });
+                        content_box.after(newPage);
+                        console.log('START-ANIMATE-0');
+                        for (i=0; i<=8; i++) {
+                            this.item_content  = $.nano(this.item_template, data.result.items[i]);
+                            newPage.append(this.item_content);
+                        }
+                        console.log('START-ANIMATE-1');
+                        content_box.animate({
+                            marginLeft: -700
+                        }, 300, function(){
+                            content_box.remove();
+                        });
+                        newPage.animate({
+                            marginRight: 0,
+                        }, 300, function(){
+                            newPage.attr('id', 'products-page-content');
+                            newPage.attr('style', '');
+                        });    
+                    }
                 }                
             }
         });

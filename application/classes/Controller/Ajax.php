@@ -40,7 +40,7 @@ class Controller_Ajax extends Controller {
         if (count($products) > 0) {
             foreach ($products AS $product) {
                 $items[] = array(
-                    'barcode'      => $product->barcode,
+                    'barcode'      => empty($product->barcode) ? '1111111111' . $product->id : $product->barcode,
                     'picture'      => $product->picture,
                     'name'         => $product->name,
                     'price'        => $product->price,
