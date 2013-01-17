@@ -14,7 +14,7 @@ class Controller_Base extends Controller_Template {
         if (count($brends) > 0) {
             
             foreach ($brends AS $brend) {
-                $liter = strtoupper( substr( ltrim($brend->vendor) , 0, 1) );
+                $liter = strtoupper( mb_substr( ltrim($brend->vendor) , 0, 1) );
                 
                 if (!empty($liter)) {
                     if (isset($compiled[$liter])) {

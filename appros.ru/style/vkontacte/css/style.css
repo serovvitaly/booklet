@@ -334,6 +334,12 @@ body{
     background: #2B587A;
     color: #FFFFFF;
 }
+.brands-list-collection table .u-left .liter-item.rus{
+    background: #FDEDED;
+}
+.brands-list-collection table .u-left .liter-item.rus:hover{
+    background: #800000;
+}
 .brands-list-collection table .u-right{
     
 }

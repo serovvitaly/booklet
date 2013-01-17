@@ -7,7 +7,10 @@
     
     if (count($brends) > 0) {
         foreach ($brends AS $brend_liter => $brends_by_liter) {
-            $litters_list .= '<div class="liter-item"><strong>' . $brend_liter . '</strong> - ' . $brends_by_liter['count'] . '</div>';
+            
+            $rus = preg_match('/[А-Я]{1}/', $brend_liter) ? ' rus' : '';
+            
+            $litters_list .= '<div class="liter-item' . $rus . '"><strong>' . $brend_liter . '</strong> - ' . $brends_by_liter['count'] . '</div>';
             
             if (count($brends_by_liter['items']) > 0){
                 
