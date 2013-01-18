@@ -147,11 +147,6 @@ body{
 
 
 
-.navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
-    background: none;
-}
-
-
 .icon-shopping-cart-loader{
     background: url("../img/ajax-loader.gif") no-repeat;
 }
