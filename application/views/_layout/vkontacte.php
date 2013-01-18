@@ -11,6 +11,9 @@
   <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/style/vkontacte/js/functions.js"></script>
   
+  <script src="/vendor/krio/jquery.krioImageLoader.js"></script>
+<!--  <script src="/vendor/"></script> -->
+  
   <script src="http://vk.com/js/api/xd_connection.js?2" type="text/javascript"></script>
   <script type="text/javascript">
     $(document).ready(function(){
@@ -82,7 +85,13 @@
             }
         });
         
-    }); 
+    });
+    
+    
+    function imageLoader()
+    {
+        //
+    }
   
   
     function brendSlideByLiter(liter){
@@ -192,6 +201,7 @@
                             this.item_content  = $.nano(this.item_template, data.result.items[i]);
                             content_box.append(this.item_content);
                         }
+                        content_box.krioImageLoader();
                     } else {
                         var newPage = $('<div class="row"></div>');
                         newPage.css({
@@ -207,7 +217,8 @@
                             this.item_content  = $.nano(this.item_template, data.result.items[i]);
                             newPage.append(this.item_content);
                         }
-                        console.log('START-ANIMATE-1');
+                        newPage.krioImageLoader();
+                        
                         content_box.animate({
                             marginLeft: -700
                         }, 300, function(){
