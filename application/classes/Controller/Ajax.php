@@ -29,7 +29,7 @@ class Controller_Ajax extends Controller {
         $page = $this->request->post('page');
         $page = $page > 1 ? $page : 1;
         
-        $display = 9;
+        $display = 18;
         
         $offset = $display * ($page - 1);
         
@@ -43,6 +43,7 @@ class Controller_Ajax extends Controller {
                     'barcode'      => empty($product->barcode) ? '1111111111' . $product->id : $product->barcode,
                     'picture'      => $product->picture,
                     'name'         => $product->name,
+                    'description'  => $product->description,
                     'price'        => $product->price,
                     'vendor_price' => ceil($product->price / VK_RATE)
                 );

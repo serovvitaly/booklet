@@ -14,13 +14,18 @@ body{
     background: #F7F7F7;
 }
 
+.coll-item{
+    float: left;
+    margin-top: 17px;
+}
+
 .product-item{
     border: 1px solid #E7EAED;
     border-top-color: #D9E0E7;
     border-bottom-color: #D9E0E7;
     margin: 0 -1px 2px 0;
     width: 234px;
-    float: left;
+  /*  float: left; */
     background: #FFFFFF;
 }
 .product-item.strip-row{
@@ -256,7 +261,8 @@ body{
 
 
 .topmenu .navbar-inner{
-    /*background: url(../img/background-topmenu-black.gif) repeat-x left top;*/
+    background: url(../img/topmenu-bg.png) repeat-x left top;
+    border-top-color: rgb(236, 236, 236);
 }
 
 .topsubmenu{
@@ -378,3 +384,33 @@ body{
     
 }
 /* -- brands-list-collection -- */
+
+
+
+.scrollbar {
+    height: 5px;
+    background: #808080;
+    border: 2px solid #808080;
+    line-height: 0;
+    border-radius: 4px;
+}
+.scrollbar .handle {
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    line-height: 0;
+    height: 5px;
+    width: 100px;
+}
+
+
+
+
+.mCSB_horizontal.mCustomScrollBox .mCSB_scrollTools{
+    top: 0;
+    bottom: auto;
+    background: url(../img/toppager-scroll-bg.png) repeat-x center center;
+}
+.mCSB_horizontal .mCSB_scrollTools .mCSB_dragger{
+    background-color: green;
+}

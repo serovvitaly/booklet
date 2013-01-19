@@ -5,14 +5,18 @@
   <title>Untitled</title>
   <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="/style/vkontacte/css/bootstrap.fixed.css">
-  <link rel="stylesheet" type="text/css" href="/style/vkontacte/css/style.css">
   
   <script type="text/javascript" src="/vendor/jquery/jquery-1.8.3.min.js"></script>
   <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/style/vkontacte/js/functions.js"></script>
   
   <script src="/vendor/krio/jquery.krioImageLoader.js"></script>
-<!--  <script src="/vendor/"></script> -->
+  
+  <link href="/vendor/manos/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+  <script src="/vendor/manos/jquery.mCustomScrollbar.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  <script src="/vendor/manos/jquery.mousewheel.min.js"></script>
+  <script src="/vendor/manos/jquery.mCustomScrollbar.js"></script>
   
   <script src="http://vk.com/js/api/xd_connection.js?2" type="text/javascript"></script>
   <script type="text/javascript">
@@ -58,7 +62,19 @@
         
         // Инициализация
         updateBasket();
-        renderPage(1);
+        
+        renderPage(1, function(){
+            $("#products-page-content").mCustomScrollbar({
+                horizontalScroll: true,
+                scrollButtons:{
+                    enable:true,
+                    scrollType:"pixels",
+                    scrollAmount:116
+                }
+            });
+            
+            $("#products-page-content").mCustomScrollbar("scrollTo","top");
+        });
         
         $('#brands-list-carousel')
             .carousel()
@@ -85,11 +101,10 @@
             }
         });
         
-    });
+    });    
     
     
-    function imageLoader()
-    {
+    function imageLoader(){
         //
     }
   
@@ -168,7 +183,7 @@
     /**
     * Отображает страницу с товарами
     */
-    function renderPage(page){
+    function renderPage(page, completed){
         
         if (page == 'next' || page == '>') {
             current_page++;
@@ -177,6 +192,8 @@
         } else {
             current_page = page;
         }
+        
+        if (completed == 'undefined' || typeof completed != 'function' ) completed = false;
         
         if (current_page < 1) current_page = 1;
         
@@ -193,14 +210,22 @@
                 
                 if (data.result && data.result.items && data.result.items.length > 0) {
                     
-                    this.item_template = $('#template-product-item').html();
+                    this.item_template = $('#template-product-item').html().replace('<!--','').replace('-->','');
                     
                     if (current_page == 1) {
                         content_box.html('');
-                        for (i=0; i<=8; i++) {
-                            this.item_content  = $.nano(this.item_template, data.result.items[i]);
-                            content_box.append(this.item_content);
+                        this.item_content = '<div class="coll-item">';
+                        this.num_el = 1;
+                        for (i=0; i <= data.result.items.length - 1; i++) {
+                            this.item_content  += $.nano(this.item_template, data.result.items[i]);
+                            this.num_el++;
+                            if (this.num_el == 4) {
+                                this.item_content += '</div><div class="coll-item">';
+                                this.num_el = 1;
+                            }
                         }
+                        this.item_content += '<div>';
+                        content_box.append(this.item_content);
                         content_box.krioImageLoader();
                     } else {
                         var newPage = $('<div class="row"></div>');
@@ -213,7 +238,7 @@
                         });
                         content_box.after(newPage);
                         console.log('START-ANIMATE-0');
-                        for (i=0; i<=8; i++) {
+                        for (i=0; i <= data.result.items.length - 1; i++) {
                             this.item_content  = $.nano(this.item_template, data.result.items[i]);
                             newPage.append(this.item_content);
                         }
@@ -231,6 +256,8 @@
                             newPage.attr('style', '');
                         });    
                     }
+                    
+                    if (completed) completed();
                 }                
             }
         });
@@ -238,6 +265,7 @@
   
   </script>
   
+  <link rel="stylesheet" type="text/css" href="/style/vkontacte/css/style.css">
 </head>
 <body>
   <?= View::factory('_common/topmenu', array('brends' => $brends)) ?>
@@ -245,42 +273,41 @@
     <?= $content ?>
   </div>
   
-  <div style="display: none;">
-    <div id="template-product-item">
-    
-      <div id="product-{barcode}" class="span2 product-item"><div class="product-item-wrapper">
-          <div style="text-align: center;">
-            <a href="#">
-              <img class="product-image-mini" data-src="holder.js/120x120" alt="120x120" style="width: 120px; height: 120px;" src="{picture}">
-            </a>
-          </div>
-          <div class="product-title-box"><a href="#">{name}</a></div>
-          <div class="product-price-box">
-            <table><tr>
-              <td class="p-left">{price} <sup>руб.</sup></td>
-              <td class="p-right">{vendor_price} <sup>гол.</sup></td>
-            </tr></table>
-          </div>
-          <div class="product-basket-box">
-            <table><tr>
-              <td class="p-left"><input class="p-count" type="text" value="1"></td>
-              <td class="p-right"><a href="#" onclick="orderWindow('{barcode}'); return false;">КУПИТЬ <i class="icon-shopping-cart"></i></a></td>
-            </tr></table>
-          </div>
-          <div class="product-link-box">
-            <table><tr>
-              <td><a href="#">подробнее</a></td>
-              <td><a href="#">сравнить</a></td>
-              <td><a href="#">поделиться</a></td>
-            </tr></table>
-          </div>
-          <div>
-            <img src="/style/vkontacte/img/hearts.png" alt="">
-          </div>
-      </div></div>
-      
-    </div>
-  </div>
+
+<div id="template-product-item" style="display: none;">
+<!--
+  <div id="product-{barcode}" class="span2 product-item"><div class="product-item-wrapper">
+      <div style="text-align: center;">
+        <a href="#">
+          <img class="product-image-mini" data-src="holder.js/120x120" alt="120x120" style="width: 120px; height: 120px;" src="{picture}">
+        </a>
+      </div>
+      <div class="product-title-box"><a href="#" title="{description}">{name}</a></div>
+      <div class="product-price-box">
+        <table><tr>
+          <td class="p-left">{price} <sup>руб.</sup></td>
+          <td class="p-right">{vendor_price} <sup>гол.</sup></td>
+        </tr></table>
+      </div>
+      <div class="product-basket-box">
+        <table><tr>
+          <td class="p-left"><input class="p-count" type="text" value="1"></td>
+          <td class="p-right"><a href="#" onclick="orderWindow('{barcode}'); return false;">КУПИТЬ <i class="icon-shopping-cart"></i></a></td>
+        </tr></table>
+      </div>
+      <div class="product-link-box">
+        <table><tr>
+          <td><a href="#">подробнее</a></td>
+          <td><a href="#">сравнить</a></td>
+          <td><a href="#">поделиться</a></td>
+        </tr></table>
+      </div>
+      <div>
+        <img src="/style/vkontacte/img/hearts.png" alt="">
+      </div>
+  </div></div>
+-->
+</div>
   
 </body>
 </html>
