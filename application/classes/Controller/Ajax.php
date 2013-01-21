@@ -24,8 +24,23 @@ class Controller_Ajax extends Controller {
     }
     
     
+    public function action_full_info()
+    {
+        $articul = $this->request->post('art');
+        
+        $articul = trim($articul, '#');
+        
+        $data = (array) ORM::factory('Product')->where('barcode', '=', $articul)->find()->as_array();
+        
+        $this->result = View::factory('vkontacte/product_full', $data)->render();
+    }
+    
+    
     public function action_page_get()
     {
+        $search = $this->request->post('search');
+        $filter = $this->request->post('filter');
+        
         $page = $this->request->post('page');
         $page = $page > 1 ? $page : 1;
         
@@ -43,7 +58,6 @@ class Controller_Ajax extends Controller {
                     'barcode'      => empty($product->barcode) ? '1111111111' . $product->id : $product->barcode,
                     'picture'      => $product->picture,
                     'name'         => $product->name,
-                    'description'  => $product->description,
                     'price'        => $product->price,
                     'vendor_price' => ceil($product->price / VK_RATE)
                 );

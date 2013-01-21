@@ -11,12 +11,7 @@
   <script type="text/javascript" src="/style/vkontacte/js/functions.js"></script>
   
   <script src="/vendor/krio/jquery.krioImageLoader.js"></script>
-  
-  <link href="/vendor/manos/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
-  <script src="/vendor/manos/jquery.mCustomScrollbar.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-  <script src="/vendor/manos/jquery.mousewheel.min.js"></script>
-  <script src="/vendor/manos/jquery.mCustomScrollbar.js"></script>
+  <script src="/vendor/microfiche/microfiche.js"></script>
   
   <script src="http://vk.com/js/api/xd_connection.js?2" type="text/javascript"></script>
   <script type="text/javascript">
@@ -63,17 +58,11 @@
         // Инициализация
         updateBasket();
         
-        renderPage(1, function(){
-            $("#products-page-content").mCustomScrollbar({
-                horizontalScroll: true,
-                scrollButtons:{
-                    enable:true,
-                    scrollType:"pixels",
-                    scrollAmount:116
-                }
+        renderPage(1, function(){            
+            $("#products-page-content .product-item .fullinfo a").on('click', function(){
+                var item_art = $(this).attr('href');
+                renderFullInfo(item_art);
             });
-            
-            $("#products-page-content").mCustomScrollbar("scrollTo","top");
         });
         
         $('#brands-list-carousel')
@@ -102,6 +91,22 @@
         });
         
     });    
+    
+    
+    function renderFullInfo(art){
+        ajaxController({
+            controller: 'ajax',
+            action: 'full_info',
+            data: {
+                art: art
+            },
+            timeout: 10000,
+            success: function(data){
+                $('#main-content').html(data.result);
+                $('#main-content').krioImageLoader();
+            }
+        });
+    }
     
     
     function imageLoader(){
@@ -176,9 +181,14 @@
             item: 'ar-' + articul + '_ct-' + $('#product-' + articul + ' input.p-count').val()
         });
     }
+    
+    function clearSearchBox(){
+        $('.topmenu .search-box input.search-element').val('');
+    }
   
     
     var current_page = 1;
+    
   
     /**
     * Отображает страницу с товарами
@@ -224,7 +234,7 @@
                                 this.num_el = 1;
                             }
                         }
-                        this.item_content += '<div>';
+                        this.item_content += '</div>';
                         content_box.append(this.item_content);
                         content_box.krioImageLoader();
                     } else {
@@ -237,7 +247,7 @@
                             marginRight: '-'+content_box.width()+'px'
                         });
                         content_box.after(newPage);
-                        console.log('START-ANIMATE-0');
+                        
                         for (i=0; i <= data.result.items.length - 1; i++) {
                             this.item_content  = $.nano(this.item_template, data.result.items[i]);
                             newPage.append(this.item_content);
@@ -269,7 +279,7 @@
 </head>
 <body>
   <?= View::factory('_common/topmenu', array('brends' => $brends)) ?>
-  <div class="container-fluid main">
+  <div class="container-fluid main" id="main-content">
     <?= $content ?>
   </div>
   
@@ -277,12 +287,12 @@
 <div id="template-product-item" style="display: none;">
 <!--
   <div id="product-{barcode}" class="span2 product-item"><div class="product-item-wrapper">
-      <div style="text-align: center;">
-        <a href="#">
+      <div style="text-align: center;" class="fullinfo">
+        <a href="#{barcode}">
           <img class="product-image-mini" data-src="holder.js/120x120" alt="120x120" style="width: 120px; height: 120px;" src="{picture}">
         </a>
       </div>
-      <div class="product-title-box"><a href="#" title="{description}">{name}</a></div>
+      <div class="product-title-box fullinfo"><a href="#{barcode}">{name}</a></div>
       <div class="product-price-box">
         <table><tr>
           <td class="p-left">{price} <sup>руб.</sup></td>

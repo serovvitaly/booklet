@@ -38,7 +38,7 @@
   <div class="navbar-inner">
     <ul class="nav"> 
       <li class="dropdown">
-        <a title="Поиск" style="padding: 5px;" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-search"></i></a>
+        <a title="Поиск" style="padding: 5px;" href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="clearSearchBox()"><i class="icon-search"></i></a>
         <ul class="dropdown-menu">
           <li>
             <div class="input-append search-box">

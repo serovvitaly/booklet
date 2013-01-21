@@ -1,5 +1,7 @@
-<div id="products-page-content" class="row" style="margin: 0; height: 924px;">
-
+<div id="products-page-content" class="row">
+  <div><ul>
+<!-- Здесь будет контент -->
+  </ul></div>
 </div>
 
 
@@ -11,6 +13,6 @@
     <li><a onclick="renderPage(3); return false;" href="#">3</a></li>
     <li><a onclick="renderPage(4); return false;" href="#">4</a></li>
     <li><a onclick="renderPage(5); return false;" href="#">5</a></li>
-    <li><a href="#">»</a></li>
+    <li><a href="#" onclick="">»</a></li>
   </ul>
 </div>
