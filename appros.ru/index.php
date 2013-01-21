@@ -6,7 +6,7 @@
  *
  * @link http://kohanaframework.org/guide/about.install#application
  */
-$application = '../application';
+$application = '../app_vk';
 
 /**
  * The directory in which your modules are located.

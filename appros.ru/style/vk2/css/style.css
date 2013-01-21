@@ -1,0 +1,29 @@
+html{
+    background: url(../img/texture.gif);
+}
+body{
+    background: none;
+}
+
+
+.styling h1{
+    font-family: 'IM Fell French Canon', serif;
+    font-style: italic;
+    color: #547E99;
+}
+.styling ol{
+    list-style-position: inside;
+}
+.styling li{
+    font-family: georgia;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 26px;
+    color: #FFFFFF;
+}
+.styling li span{
+    font-family: arial;
+    font-style: normal;
+    font-size: 14px;
+    color: #012F4D;
+}
