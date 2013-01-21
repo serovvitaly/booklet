@@ -11,7 +11,12 @@ body{
     overflow: hidden;
     padding: 0;
     padding-top: 1px;
-    background: #F7F7F7;
+    background: #FFFFFF;
+    height: 960px;
+}
+
+#main-content{
+    
 }
 
 

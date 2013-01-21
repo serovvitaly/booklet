@@ -20,23 +20,32 @@ class Controller_Ajax extends Controller {
     
     public function action_index()
     {        
-        $this->response->body('');
+        $this->result = NULL;
     }
     
     
+    public function action_catalog()
+    {
+        $content = View::factory('vkontacte/index');
+        
+        $content->products = ORM::factory('Product')->limit(9)->find_all();
+        
+        $this->result = $content->render();
+    }
+    
     public function action_rules()
     {
-        $this->result = 'Правила';
+        $this->result = View::factory('help/rules')->render();
     }
     
     public function action_delivery()
     {
-        $this->result = 'Оплата и доставка';
+        $this->result = View::factory('help/delivery')->render();
     }
     
     public function action_feedback()
     {
-        $this->result = 'Обратная связь';
+        $this->result = View::factory('help/feedback')->render();
     }
     
     

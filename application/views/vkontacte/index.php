@@ -16,3 +16,17 @@
     <li><a href="#" onclick="">»</a></li>
   </ul>
 </div>
+
+
+<script>
+$(document).ready(function(){
+    
+    renderPage(1, function(){            
+        $("#products-page-content .product-item .fullinfo a").on('click', function(){
+            var item_art = $(this).attr('href');
+            renderFullInfo(item_art);
+        });
+    });
+ 
+});
+</script>

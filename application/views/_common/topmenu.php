@@ -27,6 +27,8 @@
 ?>
 
 <div class="topsubmenu">
+  <a href="#catalog"><strong>Каталог</strong></a>
+  <span>&bull;</span>
   <a href="#rules">Правила</a>
   <span>&bull;</span>
   <a href="#delivery">Оплата и доставка</a>
