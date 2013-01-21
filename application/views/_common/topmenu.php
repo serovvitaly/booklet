@@ -27,11 +27,11 @@
 ?>
 
 <div class="topsubmenu">
-  <a href="/help/rules/">Правила</a>
+  <a href="#rules">Правила</a>
   <span>&bull;</span>
-  <a href="/help/delivery/">Оплата и доставка</a>
+  <a href="#delivery">Оплата и доставка</a>
   <span>&bull;</span>
-  <a href="/help/rules/">Обратная связь</a>
+  <a href="#feedback">Обратная связь</a>
 </div>
 
 <div class="navbar topmenu" style="margin: 0; width: 700px;">
