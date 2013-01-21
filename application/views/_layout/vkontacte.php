@@ -90,6 +90,15 @@
             }
         });
         
+        $('.search-box button').on('click', function(){
+            var form = $(this).parent('form').get(0);
+            var search = $(form).children('.search-element').get(0);
+            
+            renderPage(1, null, {
+                search: $(search).val()
+            });
+        });
+        
     });
   
   </script>

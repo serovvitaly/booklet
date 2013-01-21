@@ -128,7 +128,7 @@ function clearSearchBox(){
 /**
 * Отображает страницу с товарами
 */
-function renderPage(page, completed){
+function renderPage(page, completed, params){
     
     if (page == 'next' || page == '>') {
         current_page++;
@@ -144,12 +144,14 @@ function renderPage(page, completed){
     
     var content_box = $('#products-page-content');
     
+    $.extend({
+        page: current_page
+    }, params)
+    
     ajaxController({
         controller: 'ajax',
         action: 'page_get',
-        data: {
-            page: current_page
-        },
+        data: params,
         timeout: 10000,
         success: function(data){
             

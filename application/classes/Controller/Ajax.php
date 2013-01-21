@@ -69,12 +69,17 @@ class Controller_Ajax extends Controller {
         $page = $this->request->post('page');
         $page = $page > 1 ? $page : 1;
         
-        $display = 18;
+        $display = 9;
         
         $offset = $display * ($page - 1);
         
+        $orm = ORM::factory('Product')->offset($offset)->limit($display);
         
-        $products = ORM::factory('Product')->offset($offset)->limit($display)->find_all();
+        if ($search) {
+            $orm->where('name', 'LIKE', "%{$search}%");
+        }
+        
+        $products = $orm->find_all();
         
         $items = array();
         if (count($products) > 0) {
