@@ -16,7 +16,7 @@
   
   <script src="http://vk.com/js/api/xd_connection.js?2" type="text/javascript"></script>
   <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function(){        
         
         $.nano = function(template, data) {
             return template.replace(/\{([\w\.]*)\}/g, function (str, key) {
@@ -98,6 +98,9 @@
 </head>
 <body>
   <?= View::factory('_common/topmenu', array('brends' => $brends)) ?>
+  
+  <div class="ajax-preloader"><img src="/style/vkontacte/img/ajax-loader-2.gif"></div>
+  
   <div class="container-fluid main" id="main-content">
     <?= $content ?>
   </div>

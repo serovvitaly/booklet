@@ -8,13 +8,18 @@ var current_page = 1;
 * Загружает контент с сервера
 */
 function loadContent(params){
+    $('.ajax-preloader').show();
     ajaxController({
         controller: 'ajax',
         action: params.content,
         data: params,
         timeout: 10000,
         success: function(data){
+            $('.ajax-preloader').hide();
             renderContent(data.result);
+        },
+        failure: function(){
+            $('.ajax-preloader').hide();
         }
     });
 }
