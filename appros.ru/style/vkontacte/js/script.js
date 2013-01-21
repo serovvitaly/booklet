@@ -1,5 +1,21 @@
+/**
+* Текущая страница в списке товаров
+*/
+var current_page = 1;
 
 
+/**
+* Выводит контент в основной контейнер
+*/
+function renderContent(content){
+    $('#main-content').html(content);
+    $('#main-content').krioImageLoader();
+}
+
+
+/**
+* Выводит полную информацию о товаре
+*/
 function renderFullInfo(art){
     ajaxController({
         controller: 'ajax',
@@ -9,15 +25,9 @@ function renderFullInfo(art){
         },
         timeout: 10000,
         success: function(data){
-            $('#main-content').html(data.result);
-            $('#main-content').krioImageLoader();
+            renderContent(data.result);
         }
     });
-}
-
-
-function imageLoader(){
-    //
 }
 
 
@@ -92,9 +102,6 @@ function orderWindow(articul){
 function clearSearchBox(){
     $('.topmenu .search-box input.search-element').val('');
 }
-
-
-var current_page = 1;
 
 
 /**
