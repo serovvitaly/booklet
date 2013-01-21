@@ -19,7 +19,7 @@
                     $vendoers_list_items .= '<div class="vendor-item"><a href="#">' . $liter_item . '</a></div>';
                 }
                 
-                $vendoers_list .= '<div class="' . ($st ? 'active ' : '') . 'item">' . $vendoers_list_items . '</div>';
+                $vendoers_list .= '<li class="' . ($st ? 'active ' : '') . 'item">' . $vendoers_list_items . '</li>';
                 $st = false;
             }
         }
@@ -64,9 +64,11 @@
                   <?= $litters_list ?>
                 </td>
                 <td class="u-right">
-                  <div id="brands-list-carousel" class="carousel slide">
+                  <div id="brands-list-carousel">
                       <div class="carousel-inner">
+                        <ul>
                         <?= $vendoers_list ?>
+                        </ul>
                       </div>
                   </div>
                   <ul class="pager">

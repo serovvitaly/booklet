@@ -59,6 +59,8 @@
         // Инициализация
         updateBasket();
         
+        $('#brands-list-carousel').microfiche();
+        
         $('.topsubmenu a').on('click', function(){
             loadContent({
                 content: $(this).attr('href').replace('#', '')
