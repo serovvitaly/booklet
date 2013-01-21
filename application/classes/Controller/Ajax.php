@@ -24,6 +24,22 @@ class Controller_Ajax extends Controller {
     }
     
     
+    public function action_rules()
+    {
+        $this->result = 'Правила';
+    }
+    
+    public function action_delivery()
+    {
+        $this->result = 'Оплата и доставка';
+    }
+    
+    public function action_feedback()
+    {
+        $this->result = 'Обратная связь';
+    }
+    
+    
     public function action_full_info()
     {
         $articul = $this->request->post('art');

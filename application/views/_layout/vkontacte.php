@@ -59,6 +59,12 @@
         // Инициализация
         updateBasket();
         
+        $('.topsubmenu a').on('click', function(){
+            loadContent({
+                content: $(this).attr('href').replace('#', '')
+            });
+        });
+        
         renderPage(1, function(){            
             $("#products-page-content .product-item .fullinfo a").on('click', function(){
                 var item_art = $(this).attr('href');

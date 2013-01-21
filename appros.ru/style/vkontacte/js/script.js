@@ -5,6 +5,22 @@ var current_page = 1;
 
 
 /**
+* Загружает контент с сервера
+*/
+function loadContent(params){
+    ajaxController({
+        controller: 'ajax',
+        action: params.content,
+        data: params,
+        timeout: 10000,
+        success: function(data){
+            renderContent(data.result);
+        }
+    });
+}
+
+
+/**
 * Выводит контент в основной контейнер
 */
 function renderContent(content){
