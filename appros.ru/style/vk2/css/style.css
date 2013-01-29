@@ -1,5 +1,5 @@
 html{
-    background: url(../img/texture.gif);
+    background: url(../img/main-bg.jpg) no-repeat left top;
 }
 body{
     background: none;
@@ -26,4 +26,17 @@ body{
     font-style: normal;
     font-size: 14px;
     color: #012F4D;
+}
+
+
+.central-hover-panel{
+  /*  border: 1px dashed red; */
+    height: 500px;
+    width: 500px;
+    margin: 100px auto 0;
+    cursor: pointer;
+}
+.central-hover-panel:hover{
+    background: #000;
+    opacity: 0.5;
 }
